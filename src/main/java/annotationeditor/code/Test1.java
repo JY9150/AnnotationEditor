@@ -21,7 +21,6 @@ public class Test1 {
         codeTypeList.add("double");
         codeTypeList.add("String");
         codeTypeList.add("string");
-        codeTypeList.add("Vector");
 
         File_System.saveAsJson(codeTypeList,"codeTypeDefault.txt");
     }
