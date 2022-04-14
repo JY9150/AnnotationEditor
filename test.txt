@@ -1,0 +1,120 @@
+package stu_110504513.a8_110504513;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+public class a8_110504513 extends Application {
+    Clipboard clipboard = Clipboard.getSystemClipboard();
+    ClipboardContent content = new ClipboardContent();
+
+    /**
+    * ACE !
+    */
+    public class MyClassA{
+    }
+
+    // 哈哈是 B 拉
+    public class MyClassB
+    {
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        File[] file = new File[1];
+        PrintWriter[] output = new PrintWriter[1];
+        HBox firstLine = new HBox(30);
+        TextField textField1 = new TextField();
+        textField1.setPrefWidth(270);
+        textField1.setAlignment(Pos.BASELINE_RIGHT);
+        firstLine.getChildren().addAll(new Label("輸入: "), textField1);
+
+        HBox secondLine = new HBox(30);
+        TextField textField2 = new TextField();
+        textField2.setAlignment(Pos.BASELINE_RIGHT);
+        textField2.setPrefWidth(270);
+        secondLine.getChildren().addAll(new Label("輸出: "), textField2);
+
+        HBox thirdLine = new HBox(20);
+        Button btAdd = new Button("新建");
+        Button btSave = new Button("存檔");
+
+
+        Button btCompile = new Button("編碼");
+        Button btCopy = new Button("複製");
+        Button btClear = new Button("清空");
+
+        Text text = new Text();
+
+        btAdd.setOnAction(e -> {
+            text.setText("已新建");
+            if (file[0] != null) {
+                text.setText("新建失敗");
+            }
+            file[0] = new File("110504513.txt");
+        });
+        btSave.setOnAction(e -> {
+            try {
+                output[0] = new PrintWriter(new FileWriter(file[0], true));
+                output[0].println(textField2.getText());
+                output[0].flush();
+                text.setText("已存檔");
+            } catch (Exception ex) {
+                text.setText("存檔失敗");
+            }
+        });
+        btCompile.setOnAction(e -> {
+            String textFromInput = textField1.getText();
+            StringBuilder textForOutput = new StringBuilder();
+            for (int i = 0; i < textFromInput.length(); i++) {
+                textForOutput.append((int) textFromInput.charAt(i));
+            }
+            textField2.setText(textForOutput.toString());
+            text.setText("已編碼");
+        });
+        btCopy.setOnAction(e -> {
+            if (textField2.getText().length() == 0) {
+                text.setText("複製失敗");
+                return;
+            }
+            content.putString(textField2.getText());
+            clipboard.setContent(content);
+            text.setText("已複製");
+        });
+        btClear.setOnAction(e -> {
+            textField1.clear();
+            textField2.clear();
+            text.setText("已清空");
+        });
+        thirdLine.getChildren().addAll(btAdd, btSave, btCompile, btCopy, btClear);
+
+
+        VBox vBox = new VBox(20);
+        vBox.setPadding(new Insets(10));
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.getChildren().addAll(firstLine, secondLine, thirdLine, text);
+
+        Scene scene = new Scene(vBox, 360, 150);
+        primaryStage.setTitle("邊密碼小工具");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+}
