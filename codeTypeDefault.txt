@@ -1,1 +1,1 @@
-["int","float","double","String","string","Vector"]
+["class","int","float","double","String","string"]
