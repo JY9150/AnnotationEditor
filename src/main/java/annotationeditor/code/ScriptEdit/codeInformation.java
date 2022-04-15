@@ -18,6 +18,8 @@ public class codeInformation {
     public String name;
     public String type;
     public String annotation;
+    public boolean isDocCommentExist = false;
+    public docComment docComment = new docComment();
 
     public codeInformation(int lineIndex,String name,String type,String annotation){
         this.lineIndex = lineIndex;
