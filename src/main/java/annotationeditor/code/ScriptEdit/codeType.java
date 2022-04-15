@@ -11,46 +11,67 @@ package annotationeditor.code.ScriptEdit;
 
 import annotationeditor.code.FileSystem.File_System;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class codeType
 {
 
     private ArrayList<String> codeTypeList = new ArrayList<>();
+    private String dataName = "";
 
     public codeType(String dataName){
-        loadData(dataName);
-        //do something
+        if(!loadData(dataName)){
+            createData(dataName);
+            loadData(dataName);
+        }
     }
 
     public void addNewType(String newType){
         codeTypeList.add(newType);
-        saveData();
+//        saveData();
     }
 
 
     public boolean removeType(int targetTypeIndex){return removeType(codeTypeList.get(targetTypeIndex)); }
     public boolean removeType(String targetType)
     {
-        saveData();
-        if(true) return true;
-        return false;
+        boolean removeSuccessfully = codeTypeList.remove(targetType);
+        saveData(dataName);
+        return removeSuccessfully;
     }
 
     // if can , turn void to bool
-    private void loadData(String dataName)
+    private boolean loadData(String dataName)
     {
-        codeTypeList = File_System.loadFromJson(ArrayList.class,"codeTypeDefault.txt");
+        if (!new File(dataName).exists())
+            return false;
+        codeTypeList = File_System.loadFromJson(ArrayList.class,dataName);
+        return true;
     }
 
-    private void saveData()
+    private void saveData(String dataName)
     {
-        // this is Howoard commit test
+        File_System.saveAsJson(codeTypeList, dataName);
     }
 
     private void createData(String dataName)
     {
-
+        File file = new File(dataName);
+        try {
+            file.createNewFile();
+            Scanner scanner = new Scanner(new File("codeTypeDefault.txt"));
+            PrintWriter printWriter = new PrintWriter(dataName);
+            while (scanner.hasNext()) {
+                printWriter.println(scanner.next());
+                printWriter.flush();
+            }
+        } catch (IOException e) {
+            System.out.println("Invalid input dataName");
+        }
     }
     public ArrayList<String> getTypeList(){
         return codeTypeList;
