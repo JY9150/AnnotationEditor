@@ -20,7 +20,7 @@ public class App extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("註解編輯器");
         stage.setScene(scene);
-//        stage.show();
+        stage.show();
     }
 
     public static void main(String[] args)

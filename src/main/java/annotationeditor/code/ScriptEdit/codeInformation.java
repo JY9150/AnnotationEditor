@@ -1,9 +1,5 @@
 package annotationeditor.code.ScriptEdit;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
 /**
  * lineIndex  程式碼所在的行數<BR/>
  * ------------------------<BR/>
