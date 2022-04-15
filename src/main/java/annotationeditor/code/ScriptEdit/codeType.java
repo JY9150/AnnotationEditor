@@ -32,7 +32,7 @@ public class codeType
 
     public void addNewType(String newType){
         codeTypeList.add(newType);
-//        saveData();
+        saveData(dataName);
     }
 
 
