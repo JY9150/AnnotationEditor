@@ -32,7 +32,15 @@ public class a8_110504513 extends Application {
     public class MyClassB
     {
     }
-
+    public class MyClassC
+    {
+    }
+    public class MyClassD
+    {
+    }
+    public class MyClassE
+    {
+    }
     @Override
     public void start(Stage primaryStage) {
         File[] file = new File[1];
