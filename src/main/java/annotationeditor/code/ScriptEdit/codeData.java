@@ -22,9 +22,14 @@ public class codeData {
         processInputScript();
     }
 
-    public ArrayList<codeInformation> getInfoList(String[] typeArray){return getInfoList(typeArray,null,false);}
-    public ArrayList<codeInformation> getInfoList(String type){return getInfoList(null , type , false);}
-    public ArrayList<codeInformation> getInfoList(){return getInfoList(null,null,true);}
+    /**
+     * 取得 information 格式之 ArrayList
+     * @param typeArray     String[] 多 tags 過濾
+     * @param type          String  單 tag 過濾
+     * @param returnAll     Boolean  回傳所有
+     * @return ArrayList
+     * @see codeInformation infomation 之儲存格式
+     */
     public ArrayList<codeInformation> getInfoList(String[] typeArray , String type , Boolean returnAll)
     {
         if(returnAll){
@@ -46,18 +51,18 @@ public class codeData {
         // remove when you finish it.
         return new ArrayList<>();
     }
-    public List<String>
+    public ArrayList<codeInformation> getInfoList(String[] typeArray){return getInfoList(typeArray,null,false);}
+    public ArrayList<codeInformation> getInfoList(String type){return getInfoList(null , type , false);}
+    public ArrayList<codeInformation> getInfoList(){return getInfoList(null,null,true);}
 
 
+    public List<String> getPrecessedScript(){return precessedScript;}
 
-    getPrecessedScript(){return precessedScript;}
-
-    //處理輸入的腳本資料
+    /**
+     * 處理輸入的腳本資料
+     * 並儲存至 informationList 變數
+     */
     private void processInputScript(){
-        Scanner file = null;
-        try {file = new Scanner(new FileReader(filePath));}
-        catch (FileNotFoundException e) {e.printStackTrace();}
-
         List<String> input = new ArrayList<>();
         try {
             input = Files.readAllLines(Path.of(filePath));
