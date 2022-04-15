@@ -2,6 +2,7 @@ package annotationeditor.code.FileSystem;
 
 public class DataPath
 {
+
     final public static String resources = ".../resources/";
     final public static String codeType = resources + "codeType/";
 
