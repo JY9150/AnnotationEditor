@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class App extends Application {
     @Override
@@ -19,12 +20,12 @@ public class App extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("註解編輯器");
         stage.setScene(scene);
-        stage.show();
+//        stage.show();
     }
 
     public static void main(String[] args)
     {
         launch();
-        System.out.println("321321321");
+        System.out.println("");
     }
 }
