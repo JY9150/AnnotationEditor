@@ -1,0 +1,7 @@
+.textArea_light{
+ -fx-control-inner-background:#D6DCDC;
+ -fx-font-family: Consolas;
+ -fx-highlight-fill: #0B1212;
+ -fx-highlight-text-fill: #D6DCDC;
+ -fx-text-fill: #0B1212;
+}

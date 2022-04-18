@@ -1,1 +1,1 @@
-["class","int","float","double","String","string"]
+["void","class","int","float","double","boolean","String","List\u003cString\u003e","ArrayList\u003ccodeInformation\u003e","string"]

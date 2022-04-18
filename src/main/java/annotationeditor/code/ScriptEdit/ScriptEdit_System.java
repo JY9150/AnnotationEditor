@@ -15,10 +15,18 @@ public class ScriptEdit_System
         codeTypeList.add("PrintWriter");
         codeTypeList.add("TextField");
         codeTypeList.add("HBox");
-        codeData = new codeData("test.txt",codeTypeList);
+        codeData = new codeData("H:\\demo\\AnnotationEditor\\src\\main\\java\\annotationeditor\\code\\ScriptEdit\\codeData.java",codeTypeList);
+        informationList = codeData.getInfoList();
 
         debug.showProcessedScript();
         debug.showInformationList();
+
+        System.out.println(informationList.get(5).name);
+        System.out.print(informationList.get(5).docComment.description);
+        for (String[] i : informationList.get(5).docComment.comment){
+            System.out.println("   "+i[0]+"  "+i[1]);
+        }
+
         debug.descriptionSample(5,0.5f);
     }
 
