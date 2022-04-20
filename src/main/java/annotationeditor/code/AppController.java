@@ -1,5 +1,7 @@
 package annotationeditor.code;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -9,9 +11,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
@@ -27,7 +32,7 @@ public class AppController implements Initializable {
     @FXML
     private TextField RootPath_textField;
     @FXML
-    private TextArea Codeview;
+    private TextArea CodeView;
     @FXML
     private ComboBox<String> fileFilter_comboBox;
     private final ObservableList<String> ob = FXCollections.observableArrayList("All", ".java", ".cs", ".txt");
@@ -35,9 +40,12 @@ public class AppController implements Initializable {
     private ComboBox<String> codeTypeFilter_comboBox;
     private ObservableList<String> ob2 = FXCollections.observableArrayList("codeType1","codeType2");
     @FXML
-    private VBox DDD;
+    private AnchorPane sideBar;
+    @FXML
+    private AnchorPane sideBar_fileView;
 
 
+    private boolean isVisiable = false;
     @Override
     /** Initializing UI
      * */
@@ -46,8 +54,27 @@ public class AppController implements Initializable {
         fileFilter_comboBox.setValue("All");
         codeTypeFilter_comboBox.setItems(ob2);
         codeTypeFilter_comboBox.setValue("codeType1");
+
+        TranslateTransition translateTransition=new TranslateTransition(Duration.seconds(0.5),sideBar_fileView);
+        translateTransition.setByX(-600);
+        translateTransition.play();
+
+        sideBar.setOnMouseClicked(event -> {
+            if (isVisiable) {
+                TranslateTransition translateTransition1=new TranslateTransition(Duration.seconds(0.5),sideBar_fileView);
+                translateTransition1.setByX(-600);
+                translateTransition1.play();
+                isVisiable = false;
+            }else {
+
+                TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), sideBar_fileView);
+                translateTransition1.setByX(+600);
+                translateTransition1.play();
+                isVisiable = true;
+            }
+        });
+
         loadTreeTable();
-        //DDD.setVisible(false);
     }
 
     /**若有更改 rootPath,fileFilter 重設 fileView_treeTable
@@ -132,29 +159,27 @@ public class AppController implements Initializable {
         }
     }
 
-    /*
-     */
-//    private void findInner(File file, TreeItem<File> root, boolean fileFilter){
-//        File[] innerfiles = file.listFiles();
-//        for (File value : innerfiles) {
-//            if (value.isDirectory()) {
-//                TreeItem<String> innerRoot = new TreeItem<>(value.getName());
-//                findInner(value, innerRoot,fileFilter);
-//                root.getChildren().add(innerRoot);
-//            }
-//        }
-//        for (File value : innerfiles) {
-//            if (fileFilter){
-//                if (value.isFile() && passFileFilter(value)) {
-//                    root.getChildren().add((new TreeItem<>(value.getName())));
-//                }
-//            } else {
-//                if (value.isFile()) {
-//                    root.getChildren().add((new TreeItem<>(value.getName())));
-//                }
-//            }
-//        }
-//    }
+/*    private void findInner(File file, TreeItem<File> root, boolean fileFilter){
+        File[] innerfiles = file.listFiles();
+        for (File value : innerfiles) {
+            if (value.isDirectory()) {
+                TreeItem<String> innerRoot = new TreeItem<>(value.getName());
+                findInner(value, innerRoot,fileFilter);
+                root.getChildren().add(innerRoot);
+            }
+        }
+        for (File value : innerfiles) {
+            if (fileFilter){
+                if (value.isFile() && passFileFilter(value)) {
+                    root.getChildren().add((new TreeItem<>(value.getName())));
+                }
+            } else {
+                if (value.isFile()) {
+                    root.getChildren().add((new TreeItem<>(value.getName())));
+                }
+            }
+        }
+    }*/
     private void findInner2(File file, TreeItem<File> root, boolean fileFilter){
         File[] innerfiles = file.listFiles();
         for (File value : innerfiles) {
