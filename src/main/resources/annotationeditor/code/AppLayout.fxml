@@ -7,8 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -64,11 +63,7 @@
                         <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" prefHeight="0.0" prefWidth="88.0" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <TreeTableView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="434.0" prefWidth="290.0">
-                     <columns>
-                        <TreeTableColumn fx:id="col1" editable="false" maxWidth="200.0" prefWidth="200.0" text="Files" />
-                     </columns>
-                  </TreeTableView>
+                  <TreeView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

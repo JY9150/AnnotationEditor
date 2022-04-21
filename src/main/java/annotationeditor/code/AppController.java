@@ -23,8 +23,8 @@ import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
     // this is Jason commit test
-    @FXML private TreeTableView<File> fileView_treeTable;
-    @FXML private TreeTableColumn<File, String> col1;
+    @FXML private TreeView<File> fileView_treeTable;
+    //@FXML private TreeTableColumn<File, String> col1;
     @FXML private TextField RootPath_textField;
     @FXML private TextArea CodeView;
     @FXML private ComboBox<String> fileFilter_comboBox;
@@ -39,6 +39,9 @@ public class AppController implements Initializable {
     @FXML private ImageView settings_image;
     @FXML private VBox fileView_pane;
           private Image folder_icon = File_System.getImage("fileIcon.png",15,15);
+          private Image java_icon = File_System.getImage("java.png",15,15);
+          private Image cs_icon = File_System.getImage("c#.png",15,15);
+          private Image txt_icon = File_System.getImage("txt.png",15,15);
           private boolean isVisible = false;
 
 
@@ -53,7 +56,7 @@ public class AppController implements Initializable {
         codeTypeFilter_comboBox.setValue("codeType1");
 
         //sideBar
-        TranslateTransition translateTransition=new TranslateTransition(Duration.seconds(0.5),sideBar_View);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
         translateTransition.setByX(-600);
         translateTransition.play();
 
@@ -61,7 +64,7 @@ public class AppController implements Initializable {
 
         sideBar.setOnMouseClicked(event -> {
             if (isVisible) {
-                TranslateTransition translateTransition1=new TranslateTransition(Duration.seconds(0.5),sideBar_View);
+                TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
                 translateTransition1.setByX(-600);
                 translateTransition1.play();
                 sideBar_View.getChildren().get(0).setVisible(false);
@@ -78,6 +81,7 @@ public class AppController implements Initializable {
             fileView_pane.setVisible(true);
         });
         loadTreeTable();
+
     }
 
     /**若有更改 rootPath,fileFilter 重設 fileView_treeTable
@@ -123,17 +127,38 @@ public class AppController implements Initializable {
         String inpath = RootPath_textField.getText();
         File rootFile = new File(inpath);
         if (rootFile.exists()){
-            TreeItem<File> root = new TreeItem<>(rootFile, new ImageView(folder_icon));
-            findInner2(rootFile, root, !fileFilter_comboBox.getValue().equals("All"));
+            TreeItem<File> root = new TreeItem<>(rootFile);
+            findInner(rootFile, root, !fileFilter_comboBox.getValue().equals("All"));
             root.setExpanded(true);
-            col1.setCellValueFactory(new Callback<>() {
-                @Override
-                public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<File, String> fileStringCellDataFeatures) {
-                    return new SimpleStringProperty(fileStringCellDataFeatures.getValue().getValue().getName());
-                }
-            });
 
             fileView_treeTable.setRoot(root);
+            fileView_treeTable.setCellFactory(new Callback<TreeView<File>, TreeCell<File>>() {
+                public TreeCell<File> call(TreeView<File> param) {
+                    return new TreeCell<File>() {
+                        @Override
+                        protected void updateItem(File item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (!empty) {
+                                ImageView imageView = null;
+                                if(item.isDirectory()){
+                                    imageView = new ImageView(folder_icon);
+                                }else if(item.getName().contains(".java")){
+                                    imageView = new ImageView(java_icon);
+                                }else if(item.getName().contains(".cs")){
+                                    imageView = new ImageView(cs_icon);
+                                }else if(item.getName().contains(".txt")){
+                                    imageView = new ImageView(txt_icon);
+                                }
+                                setGraphic(imageView);
+                                setText(item.getName());
+                            } else {
+                                setText(null);
+                                setGraphic(null);
+                            }
+                        }
+                    };
+                }
+            });
         } else {
             fileView_treeTable.setRoot(new TreeItem<>());
         }
@@ -156,34 +181,13 @@ public class AppController implements Initializable {
         }
     }
 
-/*    private void findInner(File file, TreeItem<File> root, boolean fileFilter){
+    private void findInner(File file, TreeItem<File> root, boolean fileFilter){
         File[] innerfiles = file.listFiles();
         for (File value : innerfiles) {
             if (value.isDirectory()) {
-                TreeItem<String> innerRoot = new TreeItem<>(value.getName());
-                findInner(value, innerRoot,fileFilter);
-                root.getChildren().add(innerRoot);
-            }
-        }
-        for (File value : innerfiles) {
-            if (fileFilter){
-                if (value.isFile() && passFileFilter(value)) {
-                    root.getChildren().add((new TreeItem<>(value.getName())));
-                }
-            } else {
-                if (value.isFile()) {
-                    root.getChildren().add((new TreeItem<>(value.getName())));
-                }
-            }
-        }
-    }*/
-    private void findInner2(File file, TreeItem<File> root, boolean fileFilter){
-        File[] innerfiles = file.listFiles();
-        for (File value : innerfiles) {
-            if (value.isDirectory()) {
-                TreeItem<File> innerRoot = new TreeItem<>(value, new ImageView(folder_icon));
+                TreeItem<File> innerRoot = new TreeItem<>(value);
 
-                findInner2(value, innerRoot,fileFilter);
+                findInner(value, innerRoot,fileFilter);
                 root.getChildren().add(innerRoot);
             }
         }
