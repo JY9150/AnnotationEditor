@@ -1,12 +1,17 @@
 package annotationeditor.code.FileSystem;
 
+import annotationeditor.code.App;
 import com.google.gson.Gson;
+import javafx.scene.image.Image;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class File_System {
+    private static String imageFolderPath = new File("target/classes/annotationeditor/image").getAbsolutePath();
+
     public static <T> T loadFromJson(Type typeOfData, String path){
         T output ;
         String jsonData = new String();
@@ -23,9 +28,7 @@ public class File_System {
         output = new Gson().fromJson(jsonData,typeOfData);
         return output;
     }
-
-    public static <T> void saveAsJson(T saveObject , String path)
-    {
+    public static <T> void saveAsJson(T saveObject , String path) {
         String jsonObject = new Gson().toJson(saveObject);
         try{
             PrintWriter file = new PrintWriter(path);
@@ -59,7 +62,6 @@ public class File_System {
         saveAsTxt(temp,path);
     }
 
-
     public static ArrayList<String> loadFromTxt(String path){
         ArrayList<String> dataArrayList = new ArrayList<>();
         try{
@@ -72,5 +74,13 @@ public class File_System {
             System.out.println("File_System : load file from "+ path +" fail");
         }
         return dataArrayList;
+    }
+
+    public static Image getImage(String name ){
+        return new Image(imageFolderPath+"/icon/"+name.toString());
+    }
+    public static Image getImage(String name ,double width ,double height){
+        System.out.println(imageFolderPath+"/icon/"+name);
+        return new Image(imageFolderPath+"/icon/"+name,width,height,true,false);
     }
 }

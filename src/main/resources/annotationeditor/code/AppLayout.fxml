@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -8,6 +9,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -20,29 +24,41 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <TextArea fx:id="CodeView" layoutX="33.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Button layoutX="43.0" layoutY="360.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="150.0" layoutY="360.0" mnemonicParsing="false" text="Button" />
+                  <HBox alignment="CENTER" layoutX="9.0" layoutY="347.0" prefHeight="50.0" prefWidth="292.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="347.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+                  <ImageView fitHeight="71.0" fitWidth="25.0" layoutX="88.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/fileIcon.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <AnchorPane fx:id="sideBar_fileView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="sideBar_View" minWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox fx:id="DDD" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="fileView_pane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0">
                      <children>
                         <TextField fx:id="RootPath_textField" onKeyTyped="#reloadTreeTable" prefHeight="23.0" prefWidth="202.0" promptText="Enter Project Path ..." text="C:\Users\jason\Desktop\A" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#backButtonOnClick" prefHeight="23.0" prefWidth="49.0" text="back" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" VBox.vgrow="NEVER">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="174.0" prefWidth="44.0" text="Show " />
                         <ComboBox fx:id="fileFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadTreeTable" prefHeight="0.0" prefWidth="88.0" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="65.0" text="CodeType" />
                         <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" prefHeight="0.0" prefWidth="88.0" HBox.hgrow="ALWAYS" />
@@ -50,13 +66,45 @@
                   </HBox>
                   <TreeTableView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="434.0" prefWidth="290.0">
                      <columns>
-                        <TreeTableColumn fx:id="col1" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="158.66672265529633" text="name" />
+                        <TreeTableColumn fx:id="col1" editable="false" maxWidth="200.0" prefWidth="200.0" text="Files" />
                      </columns>
                   </TreeTableView>
                </children>
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="sideBar" maxWidth="-Infinity" prefHeight="200.0" prefWidth="50.0" style="-fx-background-color: blue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="sideBar" maxWidth="-Infinity" prefHeight="200.0" prefWidth="50.0" style="-fx-background-color: #404040;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox layoutX="-36.0" layoutY="-15.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="user_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/user.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="file_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/apps.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="home_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/home.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="settings_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/settings.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children></AnchorPane>
    </children>
 </AnchorPane>
