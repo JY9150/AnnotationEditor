@@ -1,6 +1,8 @@
 package annotationeditor.code;
 
 import annotationeditor.code.FileSystem.File_System;
+import annotationeditor.code.ScriptEdit.codeData;
+import annotationeditor.code.ScriptEdit.codeType;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -18,8 +20,10 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
+import java.time.Clock;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Timer;
 
 public class AppController implements Initializable {
     // this is Jason commit test
@@ -33,6 +37,9 @@ public class AppController implements Initializable {
           private ObservableList<String> ob2 = FXCollections.observableArrayList("codeType1","codeType2");
     @FXML private AnchorPane sideBar;
     @FXML private AnchorPane sideBar_View;
+    @FXML private AnchorPane left_pane;
+    @FXML private AnchorPane right_pane;
+
     @FXML private ImageView user_image;
     @FXML private ImageView file_image;
     @FXML private ImageView home_image;
@@ -45,10 +52,18 @@ public class AppController implements Initializable {
           private boolean isVisible = false;
 
 
-    @Override
     /** Initializing UI
      * */
+    public codeData codeData = new codeData("C:/Users/jason/Desktop/CE1004-B/CE_homework/A8/A8_vscode/MySystem.java",new codeType("code.txt").getTypeList());
+    @Override
     public void initialize(URL url, ResourceBundle rb){
+        //set codeDataPane
+        SecondPane p1 = new SecondPane(codeData.getInfoList());
+        p1.prefHeightProperty().bind(left_pane.heightProperty());
+        p1.prefWidthProperty().bind(left_pane.widthProperty());
+        left_pane.getChildren().add(new ScrollPane(p1));
+
+
         System.out.println(System.getProperty("user.dir"));
         fileFilter_comboBox.setItems(ob);
         fileFilter_comboBox.setValue("All");
@@ -85,36 +100,49 @@ public class AppController implements Initializable {
     }
 
     /**若有更改 rootPath,fileFilter 重設 fileView_treeTable
-     * */
+     */
     public void reloadTreeTable(){
         loadTreeTable();
     }
 
     /** fileView_treeTable 物件被選擇
-     * */
-    public File oldSelectedFile, newSelectedFile;
-    public void selectItem(){
-        try{
-            newSelectedFile = fileView_treeTable.getSelectionModel().getSelectedItem().getValue();
-        }catch (NullPointerException e){
+     */
+    private long userLastClick = 0;
+/*    public void selectItem(){
+        if(Math.abs(System.currentTimeMillis()-userLastClick) < 500) {
+            userLastClick = System.currentTimeMillis();
+            RootPath_textField.setText(fileView_treeTable.getSelectionModel().getSelectedItem().getValue().toString());
+        }
+        else userLastClick = System.currentTimeMillis();
+
+    }*/
+    private File newSelectedFile, oldSelectedFile;
+    @Deprecated
+    public void selectItem() {
+        try {
+            this.newSelectedFile = (File)((TreeItem)this.fileView_treeTable.getSelectionModel().getSelectedItem()).getValue();
+        } catch (NullPointerException var2) {
             System.out.println("Empty Selection Error");
         }
 
-        if (newSelectedFile != null){
-            if(newSelectedFile.equals(oldSelectedFile)){
-                if(newSelectedFile.isDirectory() && !Objects.equals(RootPath_textField.getText(), newSelectedFile.getAbsolutePath())) {
-                    RootPath_textField.setText(newSelectedFile.getAbsolutePath());
-                    loadTreeTable();
+        if (this.newSelectedFile != null) {
+            if (this.newSelectedFile.equals(this.oldSelectedFile)) {
+                if (this.newSelectedFile.isDirectory() && !Objects.equals(this.RootPath_textField.getText(), this.newSelectedFile.getAbsolutePath())) {
+                    this.RootPath_textField.setText(this.newSelectedFile.getAbsolutePath());
+                    this.loadTreeTable();
                 }
-            }else {
-                System.out.println(newSelectedFile);
+            } else {
+                System.out.println(this.newSelectedFile);
             }
         }
-        oldSelectedFile = newSelectedFile;
+
+        this.oldSelectedFile = this.newSelectedFile;
     }
-    
+    public String getSelectedItem(){
+        return fileView_treeTable.getSelectionModel().getSelectedItem().getValue().toString();
+    }
     /** 返回建觸發
-     * */
+     */
     public void backButtonOnClick(){
         System.out.println("Back");
         RootPath_textField.setText(new File(RootPath_textField.getText()).getParent());
@@ -122,7 +150,7 @@ public class AppController implements Initializable {
     }
 
     /* 重整fileView_treeTable
-    * */
+    */
     private void loadTreeTable(){
         String inpath = RootPath_textField.getText();
         File rootFile = new File(inpath);
