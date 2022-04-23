@@ -1,6 +1,5 @@
 package annotationeditor.code;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,9 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -32,16 +28,9 @@ public class Palette {
         return stage;
     }
 
-    /*
-    public String getCurrentRGB(){
-        String RGBinHex = "#";
-        for (int i=0;i<3;i++){
-            String temp = String.format("%x",(int)slider[i].getValue());
-            RGBinHex += temp.length()<2?"0"+temp:temp;
-        }
-        return RGBinHex;
+    public Scene getScene(){
+        return new Scene(palettePane,500,500);
     }
-    */
 
     public String getCurrentRGB(){
         String RGBinHex = "#";
@@ -51,6 +40,7 @@ public class Palette {
         }
         return RGBinHex;
     }
+
     class PalettePane extends Pane{
         VBox vBox = new VBox(20);
         SliderPane[] sliderPanes = new SliderPane[3];
