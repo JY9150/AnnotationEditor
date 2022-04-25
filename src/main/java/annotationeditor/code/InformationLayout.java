@@ -20,25 +20,25 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class InformationLayout extends ScrollPane{
+    protected codeInformation selectedInformation;
     private SecondPane secondPane;
 
     public InformationLayout(ArrayList<codeInformation> informationArrayList){
         secondPane = new SecondPane(informationArrayList);
         setContent(secondPane);
-        this.listen();
+        this.widthProperty().addListener(ov-> secondPane.setMinWidth(this.getWidth()));
+        this.heightProperty().addListener(ov-> secondPane.setMinHeight(this.getHeight()));
     }
 
-    private synchronized void listen(){
-        this.widthProperty().addListener(ov->secondPane.setMinWidth(this.getWidth()));
-        this.heightProperty().addListener(ov->secondPane.setMinHeight(this.getHeight()));
+    public codeInformation getSelectedInformation(){
+        return selectedInformation;
     }
 
     class SecondPane extends StackPane {
-        public codeInformation SelectedInformation;
         private VBox vBoxForInfoPane = new VBox(15);
 
         public SecondPane(ArrayList<codeInformation> informationArrayList) {
-            this.setPadding(new Insets(11,12,13,14));
+            vBoxForInfoPane.setPadding(new Insets(11,12,13,14));
             this.setStyle("-fx-background-color: #111C26");
             for (codeInformation information : informationArrayList) {
                 InfoPane infoPane = new InfoPane(information);
@@ -48,10 +48,6 @@ public class InformationLayout extends ScrollPane{
             this.setPadding(new Insets(0,20,0,0));
             this.widthProperty().addListener(ov->vBoxForInfoPane.setMinWidth(this.getMinWidth()-50));
             this.getChildren().add(vBoxForInfoPane);
-        }
-
-        public codeInformation getSelectedInformation(){
-            return SelectedInformation;
         }
 
         class InfoPane extends Pane {
@@ -92,8 +88,9 @@ public class InformationLayout extends ScrollPane{
                 this.widthProperty().addListener(ov->this.listen());
             }
 
-            private synchronized void listen(){
+            private void listen(){
                 this.setMinHeight(50+this.getWidth()/100);
+                docPane.setMaxWidth(super.getWidth()-60);
                 hBox.setSpacing(this.getWidth()/25);
                 vBox.setMinWidth(this.getWidth()-10);
                 textAreaInInfoPane.setMinWidth(this.getWidth()-40);
@@ -105,17 +102,16 @@ public class InformationLayout extends ScrollPane{
             }
 
             private void setMouseClicked(){
-                Node node = this;
                 Queue<Node> nodes = new LinkedList<>();
-                nodes.add(node);
+                nodes.add(this);
                 while (!nodes.isEmpty()){
-                    node = nodes.poll();
+                    Node node = nodes.poll();
                     if (node instanceof Parent){
                         Parent parent = (Parent) node;
                         nodes.addAll(parent.getChildrenUnmodifiable());
                     }
                     //System.out.println(node);
-                    node.setOnMouseClicked(e -> SelectedInformation = this.information);
+                    node.setOnMouseClicked(e -> selectedInformation = this.information);
                 }
             }
 
@@ -150,13 +146,12 @@ public class InformationLayout extends ScrollPane{
 
             private void setAction(){
                 textAreaInInfoPane.setOnKeyTyped(e->textAreaChanged(textAreaInInfoPane.getText()));
-                textAreaInInfoPane.setOnMouseClicked(e-> SelectedInformation = information);
+                textAreaInInfoPane.setOnMouseClicked(e-> selectedInformation = information);
                 radioButton.setOnAction(e->{
                     if (radioButton.isSelected()){
                         information.isDocCommentExist = true;
                         if (button.getGraphic() == open){
                             vBox.getChildren().add(docPane);
-                            docPane.listenAll(this.getWidth());
                         }
                     }
                     else {
@@ -168,10 +163,8 @@ public class InformationLayout extends ScrollPane{
                     if (button.getGraphic() == close) {
                         button.setGraphic(open);
                         vBox.getChildren().add(1,textAreaInInfoPane);
-                        if (information.isDocCommentExist){
+                        if (information.isDocCommentExist)
                             vBox.getChildren().add(docPane);
-                        }
-                        docPane.listenAll(this.getWidth());
                     } else {
                         button.setGraphic(close);
                         vBox.getChildren().remove(textAreaInInfoPane);
@@ -185,10 +178,8 @@ public class InformationLayout extends ScrollPane{
                 private Label labelInDocPane = new Label("Description : ");
                 private TextArea textAreaInDocPane = new TextArea();           // the content in this textArea will be added to the description in docComment.
                 private VBox vBoxInDocPane = new VBox(10);                  // this vBox puts in the label,textArea and CommentPanes.
-                private CommentPane[] commentPanes;
 
                 public DocPane(){
-                    this.initialCommentPanes();
                     labelInDocPane.setFont(Font.font(15));
                     textAreaInDocPane.setFont(Font.font(15));
                     textAreaInDocPane.setPrefRowCount(1);
@@ -198,13 +189,6 @@ public class InformationLayout extends ScrollPane{
                     this.getChild();
                     this.setMouseClicked();
                     this.widthProperty().addListener(ov->this.listen());
-                }
-
-                private void initialCommentPanes(){
-                    commentPanes = new CommentPane[information.docComment.comment.size()];
-                    for (int i=0;i<information.docComment.comment.size();i++){
-                        commentPanes[i] = new CommentPane(i, information.docComment.comment.get(i));
-                    }
                 }
 
                 private void setMouseClicked(){
@@ -218,7 +202,7 @@ public class InformationLayout extends ScrollPane{
                             nodes.addAll(parent.getChildrenUnmodifiable());
                         }
                         //System.out.println(node);
-                        node.setOnMouseClicked(e -> SelectedInformation = information);
+                        node.setOnMouseClicked(e -> selectedInformation = information);
                     }
                 }
 
@@ -231,20 +215,12 @@ public class InformationLayout extends ScrollPane{
                     this.getChildren().add(vBoxInDocPane);
                 }
 
-                protected void listenAll(double width){
-                    this.listen(width);
-                    for (CommentPane commentPane : commentPanes)
-                        commentPane.listen();
-                }
-
-                private synchronized void listen(){
-                    listen(this.getWidth());
-                }
-                private synchronized void listen(double width){
-                    vBoxInDocPane.setMaxWidth(width-10);
-                    labelInDocPane.setFont(Font.font(10+width/100));
-                    textAreaInDocPane.setMaxWidth(width-10);
-                    textAreaInDocPane.setMinWidth(width-10);
+                private void listen(){
+                    System.out.println(this.getWidth());
+                    vBoxInDocPane.setMaxWidth(this.getWidth());
+                    labelInDocPane.setFont(Font.font(10+this.getWidth()/100));
+                    textAreaInDocPane.setMaxWidth(this.getWidth()-10);
+                    textAreaInDocPane.setMinWidth(this.getWidth()-10);
                 }
 
                 private void textAreaChanged(String text){
@@ -258,7 +234,7 @@ public class InformationLayout extends ScrollPane{
                 }
 
                 private void setAction(){
-                    textAreaInDocPane.setOnKeyTyped(e->textAreaChanged(textAreaInDocPane.getText()));
+                    textAreaInDocPane.setOnKeyTyped(e-> textAreaChanged(textAreaInDocPane.getText()));
                 }
 
                 class CommentPane extends Pane{
@@ -279,7 +255,7 @@ public class InformationLayout extends ScrollPane{
                         this.widthProperty().addListener(ov->this.listen());
                     }
 
-                    protected synchronized void listen(){
+                    protected void listen(){
                         labelInCommentPane.setFont(Font.font(10+this.getWidth()/100));
                         labelInCommentPane.setMinWidth(105+this.getWidth()/25);
                         textFieldInCommentPane.setMinWidth(this.getWidth()-125-this.getWidth()/25);
