@@ -4,58 +4,62 @@ import annotationeditor.code.FileSystem.File_System;
 import annotationeditor.code.ScriptEdit.codeData;
 import annotationeditor.code.ScriptEdit.codeType;
 import javafx.animation.TranslateTransition;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
-import java.time.Clock;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.Timer;
 
 public class AppController implements Initializable {
     // this is Jason commit test
     @FXML private TreeView<File> fileView_treeTable;
     @FXML private TextField RootPath_textField;
-    @FXML private TextArea CodeView;
     @FXML private ComboBox<String> fileFilter_comboBox;
           private final ObservableList<String> ob = FXCollections.observableArrayList("All", ".java", ".cs", ".txt");
     @FXML private ComboBox<String> codeTypeFilter_comboBox;
           private ObservableList<String> ob2 = FXCollections.observableArrayList("codeType1","codeType2");
+    //sideBar
     @FXML private AnchorPane sideBar;
     @FXML private AnchorPane sideBar_View;
-    @FXML private AnchorPane left_pane;
-    @FXML private AnchorPane right_pane;
-
+    @FXML private StackPane sideBar_content;
+    //sideBar contents
     @FXML private ImageView user_image;
     @FXML private ImageView file_image;
     @FXML private ImageView home_image;
     @FXML private ImageView settings_image;
-    @FXML private VBox fileView_pane;
+    @FXML private Pane user_pane;
+    @FXML private Pane fileView_pane;
+    @FXML private Pane home_pane;
+    @FXML private Pane settings_pane;
+    //mainView
+    @FXML private AnchorPane left_pane;
+    @FXML private AnchorPane right_pane;
+    //MainStage
+    @FXML private AnchorPane exit_bar;
+    //Others
           private Image folder_icon = File_System.getImage("fileIcon.png",15,15);
           private Image java_icon = File_System.getImage("java.png",15,15);
           private Image cs_icon = File_System.getImage("c#.png",15,15);
           private Image txt_icon = File_System.getImage("txt.png",15,15);
-          private boolean isVisible = false;
-    @FXML private AnchorPane exit_bar;
 
     /** Initializing UI
      * */
-    public codeData codeData = new codeData("C:/Users/jason/Desktop/CE1004-B/CE_homework/A8/A8_vscode/MySystem.java",new codeType("code.txt").getTypeList());
+    private codeData codeData = new codeData("C:/Users/jason/Desktop/CE1004-B/CE_homework/A8/A8_vscode/MySystem.java",new codeType("code.txt").getTypeList());
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //set codeDataPane
@@ -72,31 +76,66 @@ public class AppController implements Initializable {
         codeTypeFilter_comboBox.setValue("codeType1");
 
         //set sideBar
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
-        translateTransition.setByX(-600);
-        translateTransition.play();
+        TranslateTransition translateEnter = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
+        TranslateTransition translateExit = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
+        translateEnter.setFromX(-500);
+        translateEnter.setToX(0);
+        translateExit.setToX(-500);
+
+        translateExit.play();
         fileView_pane.setVisible(false);
-        sideBar.setOnMouseClicked(event -> {
-            if (isVisible) {
-                TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
-                translateTransition1.setByX(-600);
-                translateTransition1.play();
-                sideBar_View.getChildren().get(0).setVisible(false);
-                isVisible = false;
-            }else {
-                TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), sideBar_View);
-                translateTransition1.setByX(+600);
-                translateTransition1.play();
-                isVisible = true;
+        sideBar.setOnMouseEntered(event -> {
+            translateEnter.play();
+        });
+        sideBar_View.setOnMouseExited(event -> {
+            if(sideBar_View.getCursor() != Cursor.E_RESIZE){
+                translateExit.play();
+            }
+        });
+        sideBar_View.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if( Math.abs(event.getX() - sideBar_content.getWidth()) < 5){
+                    sideBar_View.setCursor(Cursor.E_RESIZE);
+                }else {
+                    sideBar_View.setCursor(Cursor.DEFAULT);
+                }
+            }
+        });
+        sideBar_View.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(sideBar_View.getCursor() == Cursor.E_RESIZE){
+                    sideBar_content.setPrefWidth(event.getX());
+                }
             }
         });
 
-        file_image.setOnMouseClicked(event -> {
-            fileView_pane.setVisible(true);
+        user_image.setOnMouseClicked(event -> {
+            setAllInvisible();
+            user_pane.setVisible(true);
         });
-        loadTreeTable();
+        file_image.setOnMouseClicked(event -> {
+            setAllInvisible();
+            fileView_pane.setVisible(true);
+            loadTreeTable();
+        });
+        home_image.setOnMouseClicked(event -> {
+            setAllInvisible();
+            home_pane.setVisible(true);
+        });
+        settings_image.setOnMouseClicked(event -> {
+            setAllInvisible();
+            settings_pane.setVisible(true);
+        });
+    }
+    private void setAllInvisible(){
+        for (int i = 0; i < sideBar_content.getChildren().size(); i++) {
+            sideBar_content.getChildren().get(i).setVisible(false);
+        }
     }
 
+// TODO: 2022/5/5 rename everything
     /**若有更改 rootPath,fileFilter 重設 fileView_treeTable
      */
     public void reloadTreeTable(){
@@ -107,7 +146,7 @@ public class AppController implements Initializable {
      */
     private long userLastClick = 0;
     public void selectItem(){
-        if(Math.abs(System.currentTimeMillis()-userLastClick) < 500) {
+        if(Math.abs(System.currentTimeMillis() - userLastClick) < 500) {
             userLastClick = System.currentTimeMillis();
             File selectedItem = fileView_treeTable.getSelectionModel().getSelectedItem().getValue();
             RootPath_textField.setText(selectedItem.toString());
@@ -116,7 +155,6 @@ public class AppController implements Initializable {
             }
         }
         else userLastClick = System.currentTimeMillis();
-
     }
 
 /*    private File newSelectedFile, oldSelectedFile;
@@ -210,23 +248,6 @@ public class AppController implements Initializable {
             });
         } else {
             fileView_treeTable.setRoot(new TreeItem<>());
-        }
-    }
-
-    @Deprecated
-    private void findInner(File file, TreeItem<String> root){
-        File[] innerfiles = file.listFiles();
-        for (File value : innerfiles) {
-            if (value.isDirectory()) {
-                TreeItem<String> innerRoot = new TreeItem<>(value.getName());
-                findInner(value, innerRoot);
-                root.getChildren().add(innerRoot);
-            }
-        }
-        for (File value : innerfiles) {
-            if (value.isFile()) {
-                root.getChildren().add((new TreeItem<>(value.getName())));
-            }
         }
     }
 

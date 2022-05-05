@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -13,13 +14,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="annotationeditor.code.AppController">
    <children>
-      <SplitPane dividerPositions="0.5979711692471971" layoutY="50.0" prefHeight="392.0" prefWidth="627.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5499199145755473" layoutY="50.0" prefHeight="392.0" prefWidth="627.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="618.0" />
+          <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="355.0" />
           <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <TextArea fx:id="CodeView" layoutX="33.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -41,32 +43,49 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <AnchorPane fx:id="sideBar_View" layoutY="50.0" minWidth="200.0" prefHeight="392.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="sideBar_View" layoutY="50.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox fx:id="fileView_pane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <StackPane fx:id="sideBar_content" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0">
+                  <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3300FF;" visible="false" />
+                  <AnchorPane fx:id="fileView_pane" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="RootPath_textField" onKeyTyped="#reloadTreeTable" prefHeight="23.0" prefWidth="202.0" promptText="Enter Project Path ..." text="C:\Users\jason\Desktop\A" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#backButtonOnClick" prefHeight="23.0" prefWidth="49.0" text="back" HBox.hgrow="ALWAYS" />
+                        <VBox nodeOrientation="LEFT_TO_RIGHT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <TextField fx:id="RootPath_textField" onKeyTyped="#reloadTreeTable" promptText="Enter Project Path ..." text="C:\Users\jason\Desktop\A" HBox.hgrow="ALWAYS" />
+                                    <Button mnemonicParsing="false" onAction="#backButtonOnClick" text="back" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" VBox.vgrow="NEVER">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Show " />
+                                    <ComboBox fx:id="fileFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadTreeTable" prefHeight="0.0" prefWidth="88.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="CodeType" />
+                                    <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <TreeView fx:id="fileView_treeTable" onMouseClicked="#selectItem" VBox.vgrow="ALWAYS" />
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </VBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0" VBox.vgrow="NEVER">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="174.0" prefWidth="44.0" text="Show " />
-                        <ComboBox fx:id="fileFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadTreeTable" prefHeight="0.0" prefWidth="88.0" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="65.0" text="CodeType" />
-                        <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" prefHeight="0.0" prefWidth="88.0" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <TreeView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  </AnchorPane>
+                  <AnchorPane fx:id="home_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #330066;" visible="false" />
+                  <AnchorPane fx:id="settings_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #333399;" visible="false" />
                </children>
-            </VBox>
+            </StackPane>
          </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
       </AnchorPane>
       <AnchorPane fx:id="sideBar" layoutY="53.0" maxWidth="-Infinity" prefHeight="389.0" prefWidth="51.0" style="-fx-background-color: #404040;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -103,7 +122,7 @@
          </children></AnchorPane>
       <AnchorPane fx:id="exit_bar" layoutX="-3.0" layoutY="-4.0" maxHeight="25.0" maxWidth="125.0" minHeight="25.0" minWidth="125.0" onMouseEntered="#mouseEnterExit_bar" onMouseExited="#mouseExitExit_bar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_RIGHT" layoutX="-66.0" layoutY="-37.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER_RIGHT" blendMode="HARD_LIGHT" cache="true" layoutX="-66.0" layoutY="-37.0" pickOnBounds="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <ImageView fitHeight="35.0" fitWidth="26.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                      <image>
