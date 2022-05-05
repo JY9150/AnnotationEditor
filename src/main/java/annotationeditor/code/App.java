@@ -4,6 +4,7 @@ import annotationeditor.code.FileSystem.*;
 import annotationeditor.code.ScriptEdit.*;
 
 import javafx.application.Application;
+import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -31,6 +32,5 @@ public class App extends Application {
     public static void main(String[] args)
     {
         launch();
-        System.out.println("");
     }
 }
