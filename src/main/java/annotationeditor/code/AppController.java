@@ -27,35 +27,44 @@ import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
     // this is Jason commit test
-    @FXML private TreeView<File> fileView_treeTable;
-    @FXML private TextField RootPath_textField;
-    @FXML private ComboBox<String> fileFilter_comboBox;
-          private final ObservableList<String> ob = FXCollections.observableArrayList("All", ".java", ".cs", ".txt");
-    @FXML private ComboBox<String> codeTypeFilter_comboBox;
-          private ObservableList<String> ob2 = FXCollections.observableArrayList("codeType1","codeType2");
-    //sideBar
+
+    //Main_view
+    @FXML private AnchorPane main_view;
+    @FXML private AnchorPane annotationEditor_view;
+        //annotationEditor_view
+        @FXML private AnchorPane left_pane;
+        @FXML private AnchorPane right_pane;
+    @FXML private AnchorPane readMeMdEditor_view;
+    @FXML private AnchorPane exit_bar;
+
     @FXML private AnchorPane sideBar;
+        //sideBar
+        @FXML private ImageView user_icon;
+        @FXML private ImageView file_icon;
+        @FXML private ImageView home_icon;
+        @FXML private ImageView settings_icon;
+        @FXML private StackPane readMeMdEditor_icon;
+        @FXML private StackPane annotationEditor_icon;
     @FXML private AnchorPane sideBar_View;
     @FXML private StackPane sideBar_content;
-    //sideBar contents
-    @FXML private ImageView user_image;
-    @FXML private ImageView file_image;
-    @FXML private ImageView home_image;
-    @FXML private ImageView settings_image;
-    @FXML private Pane user_pane;
-    @FXML private Pane fileView_pane;
-    @FXML private Pane home_pane;
-    @FXML private Pane settings_pane;
-    //mainView
-    @FXML private AnchorPane left_pane;
-    @FXML private AnchorPane right_pane;
-    //MainStage
-    @FXML private AnchorPane exit_bar;
+        //sideBar_content
+        @FXML private Pane user_pane;
+        @FXML private Pane fileView_pane;
+            //fileView_Pane
+            @FXML private TreeView<File> fileView_treeTable;
+            @FXML private TextField RootPath_textField;
+            @FXML private ComboBox<String> fileFilter_comboBox;
+                  private final ObservableList<String> ob = FXCollections.observableArrayList("All", ".java", ".cs", ".txt");
+            @FXML private ComboBox<String> codeTypeFilter_comboBox;
+                  private ObservableList<String> ob2 = FXCollections.observableArrayList("codeType1","codeType2");
+        @FXML private Pane home_pane;
+        @FXML private Pane settings_pane;
+
     //Others
-          private Image folder_icon = File_System.getImage("fileIcon.png",15,15);
-          private Image java_icon = File_System.getImage("java.png",15,15);
-          private Image cs_icon = File_System.getImage("c#.png",15,15);
-          private Image txt_icon = File_System.getImage("txt.png",15,15);
+    private Image folder_icon = File_System.getImage("fileIcon.png",15,15);
+    private Image java_icon = File_System.getImage("java.png",15,15);
+    private Image cs_icon = File_System.getImage("c#.png",15,15);
+    private Image txt_icon = File_System.getImage("txt.png",15,15);
 
     /** Initializing UI
      * */
@@ -81,9 +90,9 @@ public class AppController implements Initializable {
         translateEnter.setFromX(-500);
         translateEnter.setToX(0);
         translateExit.setToX(-500);
-
         translateExit.play();
-        fileView_pane.setVisible(false);
+
+        sideBar_content.maxWidthProperty().bind(main_view.widthProperty().divide(3));
         sideBar.setOnMouseEntered(event -> {
             translateEnter.play();
         });
@@ -111,27 +120,35 @@ public class AppController implements Initializable {
             }
         });
 
-        user_image.setOnMouseClicked(event -> {
-            setAllInvisible();
+        user_icon.setOnMouseClicked(event -> {
+            setAllInvisible(sideBar_content);
             user_pane.setVisible(true);
         });
-        file_image.setOnMouseClicked(event -> {
-            setAllInvisible();
+        file_icon.setOnMouseClicked(event -> {
+            setAllInvisible(sideBar_content);
             fileView_pane.setVisible(true);
             loadTreeTable();
         });
-        home_image.setOnMouseClicked(event -> {
-            setAllInvisible();
+        home_icon.setOnMouseClicked(event -> {
+            setAllInvisible(sideBar_content);
             home_pane.setVisible(true);
         });
-        settings_image.setOnMouseClicked(event -> {
-            setAllInvisible();
+        settings_icon.setOnMouseClicked(event -> {
+            setAllInvisible(sideBar_content);
             settings_pane.setVisible(true);
         });
+        readMeMdEditor_icon.setOnMouseClicked(event -> {
+            setAllInvisible(main_view);
+            readMeMdEditor_view.setVisible(true);
+        });
+        annotationEditor_icon.setOnMouseClicked(event -> {
+            setAllInvisible(main_view);
+            annotationEditor_view.setVisible(true);
+        });
     }
-    private void setAllInvisible(){
-        for (int i = 0; i < sideBar_content.getChildren().size(); i++) {
-            sideBar_content.getChildren().get(i).setVisible(false);
+    private void setAllInvisible(Pane parentPane){
+        for (int i = 0; i < parentPane.getChildren().size(); i++) {
+            parentPane.getChildren().get(i).setVisible(false);
         }
     }
 
@@ -206,8 +223,8 @@ public class AppController implements Initializable {
     public void smallButtonOnclick(){
         System.exit(0);
     }
-
     //==================================================================================================================
+
     /* 重整fileView_treeTable
     */
     private void loadTreeTable(){
@@ -250,7 +267,8 @@ public class AppController implements Initializable {
             fileView_treeTable.setRoot(new TreeItem<>());
         }
     }
-
+    /* find files and folder in the path and check whether pass teh fileFilter
+    * */
     private void findInner(File file, TreeItem<File> root, boolean fileFilter){
         File[] innerfiles = file.listFiles();
         for (File value : innerfiles) {

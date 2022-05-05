@@ -19,33 +19,42 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="annotationeditor.code.AppController">
    <children>
-      <SplitPane dividerPositions="0.5499199145755473" layoutY="50.0" prefHeight="392.0" prefWidth="627.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="355.0" />
-          <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+      <AnchorPane fx:id="main_view" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="annotationEditor_view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextArea fx:id="CodeView" layoutX="33.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <HBox alignment="CENTER" layoutX="9.0" layoutY="347.0" prefHeight="50.0" prefWidth="292.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="347.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
-                  <ImageView fitHeight="71.0" fitWidth="25.0" layoutX="88.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/icon/fileIcon.png" />
-                     </image>
-                  </ImageView>
+                  <SplitPane dividerPositions="0.5499199145755473" prefHeight="392.0" prefWidth="627.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="355.0" />
+                      <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <TextArea fx:id="CodeView" layoutX="33.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <HBox alignment="CENTER" layoutX="9.0" layoutY="347.0" prefHeight="50.0" prefWidth="292.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="347.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Button" />
+                                    <Button mnemonicParsing="false" text="Button" />
+                                 </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <ImageView fitHeight="71.0" fitWidth="25.0" layoutX="88.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/icon/fileIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
             </AnchorPane>
-        </items>
-      </SplitPane>
-      <AnchorPane fx:id="sideBar_View" layoutY="50.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="readMeMdEditor_view" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00009F;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="sideBar_View" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
-            <StackPane fx:id="sideBar_content" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <StackPane fx:id="sideBar_content" maxWidth="500.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3300FF;" visible="false" />
                   <AnchorPane fx:id="fileView_pane" prefHeight="200.0" prefWidth="200.0">
@@ -91,22 +100,22 @@
          <children>
             <VBox layoutX="-36.0" layoutY="-15.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fx:id="user_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="user_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icon/user.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="file_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="file_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icon/add.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="home_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="home_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icon/home.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="settings_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="settings_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icon/setting.png" />
                      </image>
@@ -114,6 +123,8 @@
                         <Glow />
                      </effect>
                   </ImageView>
+                  <StackPane fx:id="readMeMdEditor_icon" layoutX="15.0" layoutY="197.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f30000;" />
+                  <StackPane fx:id="annotationEditor_icon" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #0000f3;" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
