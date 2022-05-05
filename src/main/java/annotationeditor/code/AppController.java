@@ -11,10 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
@@ -28,7 +30,6 @@ import java.util.Timer;
 public class AppController implements Initializable {
     // this is Jason commit test
     @FXML private TreeView<File> fileView_treeTable;
-    //@FXML private TreeTableColumn<File, String> col1;
     @FXML private TextField RootPath_textField;
     @FXML private TextArea CodeView;
     @FXML private ComboBox<String> fileFilter_comboBox;
@@ -50,7 +51,7 @@ public class AppController implements Initializable {
           private Image cs_icon = File_System.getImage("c#.png",15,15);
           private Image txt_icon = File_System.getImage("txt.png",15,15);
           private boolean isVisible = false;
-
+    @FXML private AnchorPane exit_bar;
 
     /** Initializing UI
      * */
@@ -58,25 +59,23 @@ public class AppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //set codeDataPane
-        SecondPane p1 = new SecondPane(codeData.getInfoList());
+        InformationLayout p1 = new InformationLayout(codeData.getInfoList());
         p1.prefHeightProperty().bind(left_pane.heightProperty());
         p1.prefWidthProperty().bind(left_pane.widthProperty());
         left_pane.getChildren().add(new ScrollPane(p1));
 
-
+        //set comboBox
         System.out.println(System.getProperty("user.dir"));
         fileFilter_comboBox.setItems(ob);
         fileFilter_comboBox.setValue("All");
         codeTypeFilter_comboBox.setItems(ob2);
         codeTypeFilter_comboBox.setValue("codeType1");
 
-        //sideBar
+        //set sideBar
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
         translateTransition.setByX(-600);
         translateTransition.play();
-
         fileView_pane.setVisible(false);
-
         sideBar.setOnMouseClicked(event -> {
             if (isVisible) {
                 TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5),sideBar_View);
@@ -96,7 +95,6 @@ public class AppController implements Initializable {
             fileView_pane.setVisible(true);
         });
         loadTreeTable();
-
     }
 
     /**若有更改 rootPath,fileFilter 重設 fileView_treeTable
@@ -108,17 +106,22 @@ public class AppController implements Initializable {
     /** fileView_treeTable 物件被選擇
      */
     private long userLastClick = 0;
-/*    public void selectItem(){
+    public void selectItem(){
         if(Math.abs(System.currentTimeMillis()-userLastClick) < 500) {
             userLastClick = System.currentTimeMillis();
-            RootPath_textField.setText(fileView_treeTable.getSelectionModel().getSelectedItem().getValue().toString());
+            File selectedItem = fileView_treeTable.getSelectionModel().getSelectedItem().getValue();
+            RootPath_textField.setText(selectedItem.toString());
+            if(selectedItem.isDirectory()){
+                reloadTreeTable();
+            }
         }
         else userLastClick = System.currentTimeMillis();
 
-    }*/
-    private File newSelectedFile, oldSelectedFile;
+    }
+
+/*    private File newSelectedFile, oldSelectedFile;
     @Deprecated
-    public void selectItem() {
+    public void selectItem2() {
         try {
             this.newSelectedFile = (File)((TreeItem)this.fileView_treeTable.getSelectionModel().getSelectedItem()).getValue();
         } catch (NullPointerException var2) {
@@ -137,7 +140,7 @@ public class AppController implements Initializable {
         }
 
         this.oldSelectedFile = this.newSelectedFile;
-    }
+    }*/
     public String getSelectedItem(){
         return fileView_treeTable.getSelectionModel().getSelectedItem().getValue().toString();
     }
@@ -149,6 +152,24 @@ public class AppController implements Initializable {
         loadTreeTable();
     }
 
+    //==================================================================================================================
+    public void mouseEnterExit_bar(){
+        exit_bar.setBlendMode(BlendMode.DARKEN);
+    }
+    public void mouseExitExit_bar(){
+        exit_bar.setBlendMode(BlendMode.LIGHTEN);
+    }
+    public void exitButtonOnclick(){
+        System.exit(0);
+    }
+    public void enlargeButtonOnclick(){
+        System.exit(0);
+    }
+    public void smallButtonOnclick(){
+        System.exit(0);
+    }
+
+    //==================================================================================================================
     /* 重整fileView_treeTable
     */
     private void loadTreeTable(){

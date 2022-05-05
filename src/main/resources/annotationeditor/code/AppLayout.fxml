@@ -17,9 +17,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="annotationeditor.code.AppController">
    <children>
-      <SplitPane dividerPositions="0.9951948745328352" layoutY="50.0" prefHeight="392.0" prefWidth="627.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <SplitPane dividerPositions="0.5979711692471971" layoutY="50.0" prefHeight="392.0" prefWidth="627.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+          <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="618.0" />
           <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <TextArea fx:id="CodeView" layoutX="33.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -41,7 +41,7 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <AnchorPane fx:id="sideBar_View" layoutY="50.0" minWidth="200.0" prefHeight="392.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+      <AnchorPane fx:id="sideBar_View" layoutY="50.0" minWidth="200.0" prefHeight="392.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox fx:id="fileView_pane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -68,7 +68,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="sideBar" layoutY="53.0" maxWidth="-Infinity" prefHeight="389.0" prefWidth="51.0" style="-fx-background-color: #404040;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <AnchorPane fx:id="sideBar" layoutY="53.0" maxWidth="-Infinity" prefHeight="389.0" prefWidth="51.0" style="-fx-background-color: #404040;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox layoutX="-36.0" layoutY="-15.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -79,7 +79,7 @@
                   </ImageView>
                   <ImageView fx:id="file_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/icon/apps.png" />
+                        <Image url="@../image/icon/add.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="home_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -89,7 +89,7 @@
                   </ImageView>
                   <ImageView fx:id="settings_image" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/icon/settings.png" />
+                        <Image url="@../image/icon/setting.png" />
                      </image>
                      <effect>
                         <Glow />
@@ -101,6 +101,30 @@
                </padding>
             </VBox>
          </children></AnchorPane>
-      <AnchorPane layoutX="-3.0" layoutY="-4.0" maxHeight="50.0" minHeight="50.0" prefHeight="143.0" prefWidth="686.0" style="-fx-background-color: lightblue;" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="exit_bar" layoutX="-3.0" layoutY="-4.0" maxHeight="25.0" maxWidth="125.0" minHeight="25.0" minWidth="125.0" onMouseEntered="#mouseEnterExit_bar" onMouseExited="#mouseExitExit_bar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" layoutX="-66.0" layoutY="-37.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="26.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/002-delete.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/003-fullscreen.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#exitButtonOnclick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/001-remove.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children></AnchorPane>
    </children>
 </AnchorPane>
