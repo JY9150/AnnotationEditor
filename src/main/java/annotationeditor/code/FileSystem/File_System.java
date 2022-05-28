@@ -80,7 +80,7 @@ public class File_System {
         return new Image(imageFolderPath+"/icon/"+name.toString());
     }
     public static Image getImage(String name ,double width ,double height){
-        System.out.println(imageFolderPath+"/icon/"+name);
+        //System.out.println(imageFolderPath+"/icon/"+name);
         return new Image(imageFolderPath+"/icon/"+name,width,height,true,false);
     }
 }
