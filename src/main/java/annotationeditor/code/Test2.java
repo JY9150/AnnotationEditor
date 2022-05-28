@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Test2 extends Application {
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage){
         StackPane stackPane1 = new StackPane(new Label("0"));
         //codeData codeData = new codeData("test.txt",new codeType("code.txt").getTypeList());
         codeData codeData = new codeData("C:/Users/howar/Desktop/IDEA java/src/A4_110504513.java",new codeType("code.txt").getTypeList());
@@ -25,7 +25,7 @@ public class Test2 extends Application {
         splitPane.getItems().addAll(stackPane1,informationLayout,stackPane2);
         splitPane.setDividerPosition(1,250);
         FXMLLoader fxmlLoader = new FXMLLoader(Test2.class.getResource("Palette.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1000,600);
+        Scene scene = new Scene(splitPane,1000,900);
         primaryStage.setTitle("Palette test");
         primaryStage.setScene(scene);
         primaryStage.show();
