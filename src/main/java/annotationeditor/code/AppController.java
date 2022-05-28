@@ -33,6 +33,8 @@ public class AppController implements Initializable {
     @FXML private AnchorPane readMeMdEditor_view;
     @FXML private AnchorPane exit_bar;
 
+    @FXML private TextArea codeView;
+
     @FXML private AnchorPane sideBar;
         //sideBar
         @FXML private ImageView user_icon;
@@ -66,6 +68,17 @@ public class AppController implements Initializable {
     private String codeTypes_path_abs = "src/main/resources/annotationeditor/CodeTypes"; //fix**
     private File selectedItem;
 
+    //================================================ todolist  =======================================================
+    //TODO: 2022/5/5 rename everything
+
+    //todo : 整合 palette??
+    //todo : codeInfo (about us)
+    //todo : use fileSystem
+    //todo : 右上導覽列
+
+    //fixme : fileView 選擇時沒有highlight
+    //fixme : comboBox 內部顏色
+
     //================================================ initialize ======================================================
 
     /** Initializing UI
@@ -78,7 +91,6 @@ public class AppController implements Initializable {
     }
 
 
-// TODO: 2022/5/5 rename everything
 // =============================================== Public Methods for UI ===============================================
     /**若有更改 rootPath,fileFilter 重設 fileView_treeTable
      */
@@ -154,7 +166,7 @@ public class AppController implements Initializable {
                         @Override
                         protected void updateItem(File item, boolean empty) {
                             super.updateItem(item, empty);
-                            if (!empty) {
+                            if (!empty && item != null) {
                                 ImageView imageView = null;
                                 if (item.isDirectory()) {
                                     imageView = new ImageView(folder_icon);
@@ -177,6 +189,7 @@ public class AppController implements Initializable {
             });
         } else {
             fileView_treeTable.setRoot(new TreeItem<>());
+            fileView_treeTable.setCellFactory(fileTreeView -> new TreeCell<>());
         }
     }
 
@@ -197,8 +210,9 @@ public class AppController implements Initializable {
         for (File value : innerFiles) {
             if (value.isDirectory()) {
                 TreeItem<File> innerRoot = new TreeItem<>(value);
-                //fixme: OverLoad
-                findInner(value, innerRoot,fileFilter);
+                if(innerFiles.length < 10){
+                    findInner(value, innerRoot,fileFilter);
+                }
                 root.getChildren().add(innerRoot);
             }
         }
@@ -233,7 +247,8 @@ public class AppController implements Initializable {
         translateExit.setToX(-500);
         translateExit.play();
 
-        sideBar_content.maxWidthProperty().bind(main_view.widthProperty().divide(3));//fixme: sidebar width
+        sideBar_content.maxWidthProperty().bind(main_view.widthProperty().divide(3));
+        sideBar_content.minWidthProperty().bind(main_view.widthProperty().divide(6));//fixme: sidebar width
         sideBar.setOnMouseEntered(event -> translateEnter.play());
         sideBar_View.setOnMouseExited(event -> {
             if(sideBar_View.getCursor() != Cursor.E_RESIZE){
