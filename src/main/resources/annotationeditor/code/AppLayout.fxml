@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -16,24 +17,25 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="annotationeditor.code.AppController">
+<AnchorPane fx:id="mainScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="759.0" stylesheets="@../image/style_j.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="annotationeditor.code.AppController">
    <children>
-      <AnchorPane fx:id="main_view" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="main_view" prefHeight="200.0" prefWidth="200.0" styleClass="mainBackgroundColor" stylesheets="@../image/style_j.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane fx:id="annotationEditor_view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="annotationEditor_view" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <SplitPane dividerPositions="0.4648241206030151" prefHeight="527.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="355.0" style="-fx-background-color: #111C26; -fx-border-color: #111C26;" />
-                      <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #111C26;">
+                      <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="355.0" styleClass="mainBackgroundColor" stylesheets="@../image/style_j.css" />
+                      <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="mainBackgroundColor" stylesheets="@../image/style_j.css">
                            <children>
-                              <TextArea fx:id="codeView" editable="false" layoutY="35.0" prefHeight="402.0" prefWidth="321.0" styleClass="codeView" stylesheets="@../image/style.css" text="ji3jkljkl;jklajkfld" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
+                              <TextArea fx:id="codeView" editable="false" layoutY="35.0" prefHeight="402.0" prefWidth="321.0" styleClass="codeView" stylesheets="@../image/style_j.css" text="&#10;&#10;&#10;(ﾒﾟДﾟ)ﾒ" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
                               <HBox alignment="CENTER" layoutX="9.0" layoutY="347.0" prefHeight="50.0" prefWidth="292.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" styleClass="theType" stylesheets="@../image/style.css" text="Preview" />
-                                    <Button mnemonicParsing="false" styleClass="theType" stylesheets="@../image/style.css" text=" Save " />
+                                    <Button mnemonicParsing="false" styleClass="myButton" stylesheets="@../image/style_j.css" text="Preview" />
+                                    <Button mnemonicParsing="false" styleClass="myButton" stylesheets="@../image/style_j.css" text=" Save " />
                                  </children>
                                  <padding>
                                     <Insets top="10.0" />
@@ -45,14 +47,81 @@
                   </SplitPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="readMeMdEditor_view" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #111C26;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <AnchorPane fx:id="readMeMdEditor_view" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="281.0" layoutY="238.0" prefHeight="60.0" prefWidth="147.0" styleClass="myButton" stylesheets="@../image/style_j.css" text="readme.md Editor&#10;施工中...&#10;" textAlignment="CENTER">
+                     <font>
+                        <Font name="Consolas Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <AnchorPane fx:id="settings_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="198.0" layoutY="113.0" prefHeight="193.0" prefWidth="311.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" styleClass="myButton" stylesheets="@../image/style_j.css" text="Background Color">
+                                 <font>
+                                    <Font name="Consolas Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ColorPicker fx:id="background_ColorPicker">
+                                 <value>
+                                    <Color red="0.06666667014360428" green="0.10980392247438431" blue="0.14901961386203766" />
+                                 </value></ColorPicker>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" styleClass="myButton" stylesheets="@../image/style_j.css" text="Button Color">
+                                 <font>
+                                    <Font name="Consolas Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ColorPicker fx:id="button_ColorPicker">
+                                 <value>
+                                    <Color red="0.4912280738353729" green="0.28654971718788147" blue="0.28654971718788147" />
+                                 </value></ColorPicker>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="36.0" prefHeight="26.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" styleClass="myButton" stylesheets="@../image/style_j.css" text="Button border color">
+                                 <font>
+                                    <Font name="Consolas Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ColorPicker fx:id="buttonBorder_ColorPicker">
+                                 <value>
+                                    <Color red="0.16014187037944794" green="0.7982456088066101" blue="0.4366534948348999" />
+                                 </value></ColorPicker>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="62.0" prefHeight="26.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" styleClass="myButton" stylesheets="@../image/style_j.css" text="Button text color">
+                                 <font>
+                                    <Font name="Consolas Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ColorPicker fx:id="buttonText_ColorPicker">
+                                 <value>
+                                    <Color red="0.31205329298973083" green="0.7782001495361328" blue="0.8947368264198303" />
+                                 </value></ColorPicker>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button layoutX="318.0" layoutY="334.0" mnemonicParsing="false" onAction="#changeColor" prefHeight="40.0" prefWidth="88.0" styleClass="myButton" stylesheets="@../image/style_j.css" text="set color" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="sideBar_View" layoutY="50.0" prefHeight="527.0" prefWidth="282.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
             <StackPane fx:id="sideBar_content" maxWidth="500.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ff55ff;" visible="false" />
                   <AnchorPane fx:id="fileView_pane" prefHeight="200.0" prefWidth="171.0">
                      <children>
                         <VBox nodeOrientation="LEFT_TO_RIGHT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -67,14 +136,16 @@
                                           <Insets />
                                        </HBox.margin>
                                     </ImageView>
-                                    <TextField fx:id="RootPath_textField" onKeyTyped="#reloadTreeTable" promptText="Enter Project Path ..." styleClass="theType" stylesheets="@../image/style.css" text="C:\Users\jason\Desktop\A" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="RootPath_textField" onKeyTyped="#reloadTreeTable" promptText="Enter Project Path ..." styleClass="myButton" stylesheets="@../image/style_j.css" text="C:\Users\jason\Desktop\A" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Consolas Bold" size="12.0" />
-                                       </font></TextField>
-                                    <Button mnemonicParsing="false" onAction="#backButtonOnClick" styleClass="theType" stylesheets="@../image/style.css" text="back" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                       </font>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#backButtonOnClick" styleClass="myButton" stylesheets="@../image/style_j.css" text="back" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Consolas Bold" size="12.0" />
-                                       </font></Button>
+                                       </font>
+                                    </Button>
                                  </children>
                                  <VBox.margin>
                                     <Insets />
@@ -88,8 +159,9 @@
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="Show" textFill="WHITE">
                                        <font>
                                           <Font name="Consolas Bold" size="12.0" />
-                                       </font></Label>
-                                    <ComboBox fx:id="fileFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadTreeTable" prefHeight="0.0" prefWidth="88.0" styleClass="theType" stylesheets="@../image/style.css" HBox.hgrow="ALWAYS" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="fileFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadTreeTable" prefHeight="0.0" prefWidth="88.0" styleClass="myButton" stylesheets="@../image/style_j.css" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <VBox.margin>
                                     <Insets />
@@ -106,8 +178,9 @@
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="CodeType" textFill="WHITE">
                                        <font>
                                           <Font name="Consolas Bold" size="12.0" />
-                                       </font></Label>
-                                    <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadInformationLayout" styleClass="theType" stylesheets="@../image/style.css" HBox.hgrow="ALWAYS" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadInformationLayout" styleClass="myButton" stylesheets="@../image/style_j.css" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -116,10 +189,11 @@
                                     <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                  </padding>
                               </HBox>
-                              <TreeView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="430.0" prefWidth="225.0" styleClass="TreeView" stylesheets="@../image/style.css" VBox.vgrow="ALWAYS">
+                              <TreeView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="430.0" prefWidth="225.0" styleClass="TreeView" stylesheets="@../image/style_j.css" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin></TreeView>
+                                 </VBox.margin>
+                              </TreeView>
                            </children>
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
@@ -127,8 +201,8 @@
                         </VBox>
                      </children>
                   </AnchorPane>
+                  <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ff55ff;" visible="false" />
                   <AnchorPane fx:id="home_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #55ffff;" visible="false" />
-                  <AnchorPane fx:id="settings_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffff55;" visible="false" />
                </children>
             </StackPane>
          </children>
@@ -150,7 +224,7 @@
                         <Image url="@../image/icon/home.png" />
                      </image>
                   </ImageView>
-                  <StackPane fx:id="annotationEditor_icon" prefHeight="150.0" prefWidth="200.0" styleClass="theType" stylesheets="@../image/style.css" VBox.vgrow="ALWAYS" />
+                  <StackPane fx:id="annotationEditor_icon" prefHeight="150.0" prefWidth="200.0" styleClass="myButton" stylesheets="@../image/style_j.css" VBox.vgrow="ALWAYS" />
                   <StackPane fx:id="readMeMdEditor_icon" layoutX="15.0" layoutY="197.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f30000;" VBox.vgrow="ALWAYS" />
                   <ImageView fx:id="user_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                      <image>

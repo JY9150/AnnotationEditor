@@ -6,9 +6,11 @@ import annotationeditor.code.ScriptEdit.codeType;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.CssMetaData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
@@ -19,8 +21,11 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
@@ -66,8 +71,16 @@ public class AppController implements Initializable {
 
     private InformationLayout informationLayout_pane;
     private String codeTypes_path_abs = "src/main/resources/annotationeditor/CodeTypes"; //fix**
+    private String cssFile_path_abs = "src/main/resources/annotationeditor/image/"; //fix**
     private File selectedItem;
 
+    //colorPicker
+    @FXML private ColorPicker background_ColorPicker;
+    @FXML private ColorPicker button_ColorPicker;
+    @FXML private ColorPicker buttonBorder_ColorPicker;
+    @FXML private ColorPicker buttonText_ColorPicker;
+    //unsorted
+    @FXML private AnchorPane mainScene;
     //================================================ todolist  =======================================================
     //TODO: 2022/5/5 rename everything
 
@@ -88,6 +101,8 @@ public class AppController implements Initializable {
         comboBoxInitialize();
         sideBarInitialize();
         loadTreeTable();
+        sideBar_View.setVisible(true);
+        settings_pane.setVisible(true);
     }
 
 
@@ -130,6 +145,83 @@ public class AppController implements Initializable {
     public void backButtonOnClick(){
         RootPath_textField.setText(new File(RootPath_textField.getText()).getParent());
         loadTreeTable();
+    }
+
+    public void changeColor(){
+        //todo: colorChanger
+        System.out.println("change");
+        try{
+            File temp = new File("style_j.css");
+            temp.delete();
+            temp.createNewFile();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+
+            String backgroundColor_code = background_ColorPicker.getValue().toString().substring(2);
+            String buttonColor_code = button_ColorPicker.getValue().toString().substring(2);
+            String borderColor_code = buttonBorder_ColorPicker.getValue().toString().substring(2);
+            String textColor_code = buttonText_ColorPicker.getValue().toString().substring(2);
+
+            bw.write("" +
+                    ".mainBackgroundColor{\n" +
+                    "    -fx-background-color: #"+backgroundColor_code+";\n" +
+                    "}" +
+                    ".myButton {\n" +
+                    "    -fx-background-color: #"+buttonColor_code+";\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-border-color: #" +borderColor_code+";\n" +
+                    "    -fx-border-radius: 10;\n" +
+                    "\n" +
+                    "    -fx-font-family: Consolas;\n" +
+                    "    -fx-font-weight: bold;\n" +
+                    "    -fx-text-fill: #"+textColor_code+";\n" +
+                    "    -fx-highlight-fill: #ffffff;\n" +
+                    "}" +
+                    ".TreeView{\n" +
+                    "    -fx-background-color:  #"+backgroundColor_code+";\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-border-color: #"+borderColor_code+";\n" +
+                    "    -fx-border-radius: 10;\n" +
+                    "}\n" +
+                    ".TreeView .tree-cell{\n" +
+                    "   -fx-font-family: Consolas;\n" +
+                    "   -fx-background-color:  #"+backgroundColor_code+";\n" +
+                    "   -fx-text-fill: #"+textColor_code+";\n" +
+                    "   -fx-background-radius: 10;\n" +
+                    "}\n" +
+                    "\n" +
+                    ".codeView{\n" +
+                    "    -fx-background-color: #"+backgroundColor_code+";\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-border-color: #"+borderColor_code+";\n" +
+                    "    -fx-border-radius: 10;\n" +
+                    "\n" +
+                    "    -fx-font-family: Consolas;\n" +
+                    "    -fx-text-fill: #"+textColor_code+";\n" +
+                    "    -fx-highlight-fill: #ffffff;\n" +
+                    "    -fx-highlight-text-fill: #"+backgroundColor_code+";\n" +
+                    "}\n" +
+                    ".text-area .scroll-pane {\n" +
+                    "    -fx-background-color: transparent;\n" +
+                    "}\n" +
+                    ".text-area .scroll-pane .viewport{\n" +
+                    "    -fx-background-color: transparent;\n" +
+                    "}\n" +
+                    ".text-area .scroll-pane .content{\n" +
+                    "    -fx-background-color: transparent;\n" +
+                    "}");
+            bw.close();
+            //優化
+            for(Node n : mainScene.getChildren()){
+                if(n instanceof AnchorPane){
+                    AnchorPane k = (AnchorPane) n;
+                    k.getStylesheets().clear();
+                    k.getStylesheets().add(temp.toURI().toString());
+                }
+            }
+            mainScene.getStylesheets().add(temp.toURI().toString());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     //================================================ 視窗按鍵 =========================================================
@@ -282,7 +374,7 @@ public class AppController implements Initializable {
             home_pane.setVisible(true);
         });
         settings_icon.setOnMouseClicked(event -> {
-            setAllInvisible(sideBar_content);
+            setAllInvisible(main_view);
             settings_pane.setVisible(true);
         });
         readMeMdEditor_icon.setOnMouseClicked(event -> {
@@ -319,4 +411,9 @@ public class AppController implements Initializable {
             parentPane.getChildren().get(i).setVisible(false);
         }
     }
+    private void reloadColorChanger(){
+        //todo 0
+    }
+
+
 }

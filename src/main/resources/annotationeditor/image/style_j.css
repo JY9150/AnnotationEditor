@@ -1,0 +1,49 @@
+.mainBackgroundColor{
+    -fx-background-color: #111C26;
+}
+.myButton {
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+
+    -fx-font-family: Consolas;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-highlight-fill: #ffffff;
+    -fx-highlight-text-fill: #111C26;
+}
+
+.TreeView{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+}
+.TreeView .tree-cell{
+   -fx-font-family: Consolas;
+   -fx-background-color:  #111C26;
+   -fx-text-fill: #ffffff;
+   -fx-background-radius: 10;
+}
+
+.codeView{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+
+    -fx-font-family: Consolas;
+    -fx-text-fill: #ffffff;
+    -fx-highlight-fill: #ffffff;
+    -fx-highlight-text-fill: #111C26;
+}
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
