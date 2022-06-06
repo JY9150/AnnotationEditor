@@ -17,7 +17,7 @@ public class Test2 extends Application {
     public void start(Stage primaryStage){
         StackPane stackPane1 = new StackPane(new Label("0"));
         //codeData codeData = new codeData("test.txt",new codeType("code.txt").getTypeList());
-        codeData codeData = new codeData("C:/Users/howar/Desktop/IDEA java/src/A4_110504513.java",new codeType("code.txt").getTypeList());
+        codeData codeData = new codeData("C:/Users/howar/Desktop/IDEA java/src/main/java/A4_110504513.java",new codeType("code.txt").getTypeList());
         ArrayList<codeInformation> infoList = codeData.getInfoList();
         InformationLayout informationLayout = new InformationLayout(infoList);
         StackPane stackPane2 = new StackPane(new Label("2"));
