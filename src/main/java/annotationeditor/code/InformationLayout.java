@@ -51,9 +51,9 @@ public class InformationLayout extends ScrollPane{
                 });
                 vBoxForInfoPane.getChildren().addAll(infoPane,rectangle1);
                 if (i == informationArrayList.size()-1){
-                    rectangle1.layoutYProperty().addListener(ov->rectangle.setHeight(getScene().getHeight()-rectangle1.getLayoutY()-50));
+                    rectangle1.layoutYProperty().addListener(ov->rectangle.setHeight(getScene().getHeight()-rectangle1.getLayoutY()-40));
+                    vBoxForInfoPane.heightProperty().addListener(ov->rectangle.setHeight(getScene().getHeight()-rectangle1.getLayoutY()-40));
                 }
-
             }
             vBoxForInfoPane.getChildren().add(rectangle);
             this.setPadding(new Insets(0,20,0,0));
@@ -121,7 +121,7 @@ public class InformationLayout extends ScrollPane{
             private double getFinalHeight(boolean isExtend){
                 if (button.getRotate()==90&&!isExtend)
                     return hBox.getHeight();
-                double finalHeight = hBox.getHeight() + docPane.textAreaInDocPane.getMinHeight() + 20;
+                double finalHeight = hBox.getHeight() + docPane.textAreaForAnnotation.getMinHeight() + 20;
                 if (radioButton.isSelected()) {
                     finalHeight += docPane.labelInDocPane.getMinHeight() + docPane.textAreaInDocPane.getMinHeight() + 20;
                     for (DocPane.CommentPane commentPane : docPane.commentPanes){
@@ -139,13 +139,13 @@ public class InformationLayout extends ScrollPane{
 
             private void listen(){
                 this.setMinHeight(50+this.getWidth()/100);
-                docPane.setMaxWidth(super.getWidth()-60);
-                hBox.setSpacing(this.getWidth()/25);
-                vBox.setMinWidth(this.getWidth()-10);
-                docPane.setMinWidth(this.getWidth()-30);
-                label.setFont(Font.font(10+this.getWidth()/100));
-                label.setMinWidth(this.getWidth()*3/5);
-                radioButton.setFont(Font.font(8+this.getWidth()/100));
+                docPane.setMaxWidth(super.getMinWidth()-60);
+                hBox.setSpacing(this.getMinWidth()/25);
+                vBox.setMinWidth(this.getMinWidth()-10);
+                docPane.setMinWidth(this.getMinWidth()-30);
+                label.setFont(Font.font(10+this.getMinWidth()/100));
+                label.setMinWidth(this.getMinWidth()*3/5<200?200:this.getMinWidth()*3/5);
+                radioButton.setFont(Font.font(8+this.getMinWidth()/100));
             }
 
             private void setAction(){
@@ -171,8 +171,8 @@ public class InformationLayout extends ScrollPane{
             }
 
             private void resetHeight(double changeValue){
-                super.setMinHeight(super.getMinHeight()+changeValue);
-                super.setMaxHeight(super.getMaxHeight()+changeValue);
+                this.setMinHeight(this.getMinHeight()+changeValue);
+                this.setMaxHeight(this.getMaxHeight()+changeValue);
             }
 
             class DocPane extends VBox{
@@ -214,12 +214,12 @@ public class InformationLayout extends ScrollPane{
                     vBoxInDocPane.setMaxWidth(this.getWidth());
                     labelInDocPane.setFont(Font.font(10+this.getWidth()/100));
                     labelInDocPane.setMinHeight(25+this.getWidth()/100);
-                    textAreaForAnnotation.setMinWidth(this.getWidth()-10);
-                    textAreaForAnnotation.setMaxWidth(this.getWidth()-10);
+                    textAreaForAnnotation.setMinWidth(this.getWidth());
+                    textAreaForAnnotation.setMaxWidth(this.getWidth());
                     textAreaForAnnotation.setFont(Font.font(15+this.getWidth()/200));
                     this.textAreaChanged(textAreaForAnnotation.getText(),textAreaForAnnotation);
-                    textAreaInDocPane.setMaxWidth(this.getWidth()-10);
-                    textAreaInDocPane.setMinWidth(this.getWidth()-10);
+                    textAreaInDocPane.setMaxWidth(this.getWidth());
+                    textAreaInDocPane.setMinWidth(this.getWidth());
                     textAreaInDocPane.setFont(Font.font(15+this.getWidth()/200));
                     this.textAreaChanged(textAreaInDocPane.getText(),textAreaInDocPane);
                 }
@@ -307,8 +307,8 @@ public class InformationLayout extends ScrollPane{
                         labelInCommentPane.setFont(Font.font(10+this.getWidth()/100));
                         labelInCommentPane.setMinWidth(105+this.getWidth()/25);
                         labelInCommentPane.setMinHeight(25+this.getWidth()/100);
-                        textFieldInCommentPane.setMinWidth(this.getWidth()-135-this.getWidth()/25);
-                        textFieldInCommentPane.setMaxWidth(this.getWidth()-135-this.getWidth()/25);
+                        textFieldInCommentPane.setMinWidth(this.getWidth()-125-this.getWidth()/25);
+                        textFieldInCommentPane.setMaxWidth(this.getWidth()-125-this.getWidth()/25);
                         textFieldInCommentPane.setFont(Font.font(10+this.getWidth()/100));
                     }
 
