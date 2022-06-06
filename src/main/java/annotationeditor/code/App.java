@@ -21,6 +21,10 @@ import java.util.Vector;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        DataHolder DH = DataHolder.getInstance();
+        DH.codeType = new codeType("");
+        DH.codeData = new codeData("",DH.codeType.getTypeList());
+
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("AppLayout.fxml"));
         System.out.println(fxmlLoader);
         Scene scene = new Scene(fxmlLoader.load());

@@ -146,10 +146,38 @@ public class codeData {
                     index--;
                     removeCount++;
                 }
+
+                if(! isFunction(line).equals("")){
+                    codeInformation thisInfo = informationList.get(informationList.size()-1);
+                    List<String> comment = new ArrayList<>();
+                    String type = isFunction(line);
+                    if(!type.equals("void"))
+                        comment.add("void");
+                    String[] param = line.substring(line.indexOf("(")+1,line.indexOf(")")).split(",");
+
+                    for (String p : param){
+                        String name =  p.split(" ")[1];
+                        boolean isExist = false;
+                        for(String[] s : thisInfo.docComment.comment){
+                            if(name.equals(s[0])) {
+                                isExist = true;
+                                break;
+                            }
+                        }
+
+                        if(! isExist){
+                            String[] newComment = new String[2];
+                            newComment[0] = name;
+                            thisInfo.docComment.comment.add(newComment);
+                        }
+                    }
+                }
+
                 isFound = false;
             }
         }
         this.precessedScript = input;
+        System.out.print(OutputProcessedScript());
     }
 
     private boolean isClass(String input){
@@ -157,6 +185,7 @@ public class codeData {
                 ! input.contains(".class") &&
                 (! input.contains("(") && ! input.contains(")")) ;
     }
+
     private String isFunction(String input){
         String output = "";
         for(String i :codeTypeList){
@@ -169,5 +198,36 @@ public class codeData {
             }
         }
         return output;
+    }
+
+    public String OutputProcessedScript(){
+        List<String> output = new ArrayList<>(precessedScript);
+        int lineOffset = 0;
+        for(codeInformation information : informationList){
+            if(!information.annotation.equals(null)){
+                output.add(information.lineIndex+lineOffset,information.annotation.replace("\n","\n//"));
+                lineOffset++;
+            }
+            if(!information.docComment.description.equals(null)){
+                output.add(information.lineIndex+lineOffset,"/**\n*");
+                lineOffset++;
+                output.add(information.lineIndex+lineOffset,information.docComment.description.replace("\n","\n*"));
+                lineOffset++;
+                for(String[] i : information.docComment.comment){
+                    String temp = "* @"+i[0]+" "+i[1];
+                    output.add(information.lineIndex+lineOffset,temp);
+                    lineOffset++;
+                }
+            }
+            output.add(information.lineIndex+lineOffset,"*/");
+            lineOffset++;
+        }
+
+        String outputStr = "";
+        for(String i : output){
+            outputStr+=i+"\n";
+        }
+
+        return outputStr;
     }
 }
