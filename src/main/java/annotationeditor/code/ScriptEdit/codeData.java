@@ -156,6 +156,8 @@ public class codeData {
                     String[] param = line.substring(line.indexOf("(")+1,line.indexOf(")")).split(",");
 
                     for (String p : param){
+                        if(p.split(" ").length<2)
+                            break;
                         String name =  p.split(" ")[1];
                         boolean isExist = false;
                         for(String[] s : thisInfo.docComment.comment){
