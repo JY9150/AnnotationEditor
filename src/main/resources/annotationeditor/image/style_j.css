@@ -47,3 +47,35 @@
 .text-area .scroll-pane .content{
     -fx-background-color: transparent;
 }
+
+.combo-box{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+}
+.combo-box .cell{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-font-family: Consolas;
+	-fx-text-fill: #ffffff;
+}
+.combo-box .list-view {
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+}
+.combo-box .list-view .list-cell{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+
+    -fx-font-family: Consolas;
+    -fx-text-fill: #ffffff;
+}
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #d81b60
+}
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: #d81b60
+}

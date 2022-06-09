@@ -6,7 +6,6 @@ import annotationeditor.code.ScriptEdit.codeType;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.CssMetaData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -25,7 +24,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
@@ -84,13 +82,10 @@ public class AppController implements Initializable {
     //================================================ todolist  =======================================================
     //TODO: 2022/5/5 rename everything
 
-    //todo : 整合 palette??
-    //todo : codeInfo (about us)
     //todo : use fileSystem
     //todo : 右上導覽列
 
     //fixme : fileView 選擇時沒有highlight
-    //fixme : comboBox 內部顏色
 
     //================================================ initialize ======================================================
 
@@ -148,10 +143,9 @@ public class AppController implements Initializable {
     }
 
     public void changeColor(){
-        //todo: colorChanger
         System.out.println("change");
         try{
-            File temp = new File("style_j.css");
+            File temp = new File("style_new.css");
             temp.delete();
             temp.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
@@ -200,15 +194,32 @@ public class AppController implements Initializable {
                     "    -fx-highlight-fill: #ffffff;\n" +
                     "    -fx-highlight-text-fill: #"+backgroundColor_code+";\n" +
                     "}\n" +
-                    ".text-area .scroll-pane {\n" +
-                    "    -fx-background-color: transparent;\n" +
+                    ".combo-box{\n" +
+                    "    -fx-background-color: #"+buttonColor_code+";\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-border-color: #"+borderColor_code+";\n" +
+                    "    -fx-border-radius: 10;\n" +
                     "}\n" +
-                    ".text-area .scroll-pane .viewport{\n" +
-                    "    -fx-background-color: transparent;\n" +
+                    ".combo-box .cell{\n" +
+                    "    -fx-background-color: #"+buttonColor_code+";\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-font-family: Consolas;\n" +
+                    "    -fx-text-fill: #"+textColor_code+";\n" +
                     "}\n" +
-                    ".text-area .scroll-pane .content{\n" +
-                    "    -fx-background-color: transparent;\n" +
-                    "}");
+                    ".combo-box .list-view {\n" +
+                    "    -fx-background-color: #"+buttonColor_code+";\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-border-color: #"+borderColor_code+";\n" +
+                    "    -fx-border-radius: 10;\n" +
+                    "}\n" +
+                    ".combo-box .list-view .list-cell{\n" +
+                    "    -fx-background-color: #"+buttonColor_code+";\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "\n" +
+                    "    -fx-font-family: Consolas;\n" +
+                    "    -fx-text-fill: #"+textColor_code+";\n" +
+                    "}"
+                    );
             bw.close();
             //優化
             for(Node n : mainScene.getChildren()){
@@ -343,7 +354,7 @@ public class AppController implements Initializable {
         sideBar_content.minWidthProperty().bind(main_view.widthProperty().divide(6));//fixme: sidebar width
         sideBar.setOnMouseEntered(event -> translateEnter.play());
         sideBar_View.setOnMouseExited(event -> {
-            if(sideBar_View.getCursor() != Cursor.E_RESIZE){
+            if(sideBar_View.getCursor() != Cursor.E_RESIZE && !codeTypeFilter_comboBox.showingProperty().getValue() && !fileFilter_comboBox.showingProperty().getValue()){
                 translateExit.play();
             }
         });
