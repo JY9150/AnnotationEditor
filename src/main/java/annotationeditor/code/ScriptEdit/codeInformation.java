@@ -13,6 +13,7 @@ package annotationeditor.code.ScriptEdit;
  * annotation 程式碼之註解
  * ------------------------<BR/>
  */
+
 public class codeInformation {
     public int lineIndex;
     public String name;
