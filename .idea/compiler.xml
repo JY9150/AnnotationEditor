@@ -13,4 +13,9 @@
       <module name="AnnotationEditor" target="17" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AnnotationEditor" options="--add-exports javafx.graphics/com.sun.javafx.css=finalproject.finalproject" />
+    </option>
+  </component>
 </project>

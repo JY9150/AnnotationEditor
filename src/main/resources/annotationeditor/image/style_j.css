@@ -1,0 +1,81 @@
+.mainBackgroundColor{
+    -fx-background-color: #111C26;
+}
+.myButton {
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+
+    -fx-font-family: Consolas;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-highlight-fill: #ffffff;
+    -fx-highlight-text-fill: #111C26;
+}
+
+.TreeView{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+}
+.TreeView .tree-cell{
+   -fx-font-family: Consolas;
+   -fx-background-color:  #111C26;
+   -fx-text-fill: #ffffff;
+   -fx-background-radius: 10;
+}
+
+.codeView{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+
+    -fx-font-family: Consolas;
+    -fx-text-fill: #ffffff;
+    -fx-highlight-fill: #ffffff;
+    -fx-highlight-text-fill: #111C26;
+}
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+.combo-box{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+}
+.combo-box .cell{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-font-family: Consolas;
+	-fx-text-fill: #ffffff;
+}
+.combo-box .list-view {
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+}
+.combo-box .list-view .list-cell{
+    -fx-background-color: #111C26;
+    -fx-background-radius: 10;
+
+    -fx-font-family: Consolas;
+    -fx-text-fill: #ffffff;
+}
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #d81b60
+}
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: #d81b60
+}
