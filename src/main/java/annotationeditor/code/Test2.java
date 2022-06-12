@@ -15,12 +15,14 @@ import java.util.ArrayList;
 public class Test2 extends Application {
     @Override
     public void start(Stage primaryStage){
-        StackPane stackPane1 = new StackPane(new Label("0"));
+        Button button = new Button("0");
+        StackPane stackPane1 = new StackPane(button);
         //codeData codeData = new codeData("test.txt",new codeType("code.txt").getTypeList());
         codeData codeData = new codeData("C:/Users/howar/Desktop/IDEA java/src/main/java/A4_110504513.java",new codeType("code.txt").getTypeList());
         ArrayList<codeInformation> infoList = codeData.getInfoList();
         InformationLayout informationLayout = new InformationLayout(infoList);
         StackPane stackPane2 = new StackPane(new Label("2"));
+        button.setOnAction(e->informationLayout.setBackgroundColor("996699"));
         SplitPane splitPane = new SplitPane();
         splitPane.getItems().addAll(stackPane1,informationLayout,stackPane2);
         splitPane.setDividerPosition(1,250);

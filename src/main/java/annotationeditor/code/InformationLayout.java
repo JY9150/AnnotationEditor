@@ -22,9 +22,15 @@ import java.util.Queue;
 public class InformationLayout extends ScrollPane{
     protected codeInformation selectedInformation;
     private SecondPane secondPane;
+    private Rectangle[] rectangles;
 
     public InformationLayout(ArrayList<codeInformation> informationArrayList){
-        secondPane = new SecondPane(informationArrayList);
+        this(informationArrayList, "111C26FF");
+    }
+
+    public InformationLayout(ArrayList<codeInformation> informationArrayList, String backgroundColor){
+        rectangles = new Rectangle[informationArrayList.size()];
+        secondPane = new SecondPane(informationArrayList, backgroundColor);
         setContent(secondPane);
         this.widthProperty().addListener(ov-> secondPane.setMinWidth(this.getWidth()));
         this.heightProperty().addListener(ov-> secondPane.setMinHeight(this.getHeight()));
@@ -34,28 +40,33 @@ public class InformationLayout extends ScrollPane{
         return selectedInformation;
     }
 
+    public void setBackgroundColor(String backgroundColor){
+        secondPane.setStyle("-fx-background-color: #" + backgroundColor);
+        for (Rectangle rectangle : rectangles) {
+            rectangle.setFill(Color.valueOf(backgroundColor));
+        }
+    }
+
     class SecondPane extends StackPane {
         private VBox vBoxForInfoPane = new VBox();
 
-        public SecondPane(ArrayList<codeInformation> informationArrayList) {
-            this.setStyle("-fx-background-color: #111C26");
+        public SecondPane(ArrayList<codeInformation> informationArrayList, String backgroundColor) {
+            this.setStyle("-fx-background-color: #" + backgroundColor);
             vBoxForInfoPane.setPadding(new Insets(11,12,13,14));
-            Rectangle rectangle = new Rectangle(1000,300,Color.rgb(17,28,38)); // 放置在vBoxForInfoPane最後面,防止跑動畫的時候docPane外露
             for (int i=0;i<informationArrayList.size();i++) {
                 InfoPane infoPane = new InfoPane(informationArrayList.get(i));
-                Rectangle rectangle1 = new Rectangle(1000,15,Color.rgb(17,28,38)); // 放置在infoPane之間,防止跑動畫的時候docPane外露
+                rectangles[i] = new Rectangle(1000,15,Color.valueOf(backgroundColor)); // 放置在infoPane之間,防止跑動畫的時候docPane外露
+                int finalI = i;
                 vBoxForInfoPane.widthProperty().addListener(ov->{
                     infoPane.setMinWidth(this.getMinWidth()-60);
-                    rectangle1.setWidth(this.getMinWidth()-60);
-                    rectangle.setWidth(this.getMinWidth()-60);
+                    rectangles[finalI].setWidth(this.getMinWidth()-60);
                 });
-                vBoxForInfoPane.getChildren().addAll(infoPane,rectangle1);
+                vBoxForInfoPane.getChildren().addAll(infoPane,rectangles[i]);
                 if (i == informationArrayList.size()-1){
-                    rectangle1.layoutYProperty().addListener(ov->rectangle.setHeight(getScene().getHeight()-rectangle1.getLayoutY()-40));
-                    vBoxForInfoPane.heightProperty().addListener(ov->rectangle.setHeight(getScene().getHeight()-rectangle1.getLayoutY()-40));
+                    infoPane.layoutYProperty().addListener(ov->rectangles[finalI].setHeight(getScene().getHeight()-rectangles[finalI].getLayoutY()-40));
+                    vBoxForInfoPane.heightProperty().addListener(ov->rectangles[finalI].setHeight(getScene().getHeight()-rectangles[finalI].getLayoutY()-40));
                 }
             }
-            vBoxForInfoPane.getChildren().add(rectangle);
             this.setPadding(new Insets(0,20,0,0));
             this.widthProperty().addListener(ov->vBoxForInfoPane.setMinWidth(this.getMinWidth()-50));
             this.getChildren().add(vBoxForInfoPane);
@@ -85,6 +96,7 @@ public class InformationLayout extends ScrollPane{
                 label.setFont(new Font(15));
                 this.setColor();
                 radioButton.setSelected(information.isDocCommentExist);
+                radioButton.setTextFill(Color.GREENYELLOW);
                 hBox.setAlignment(Pos.BASELINE_LEFT);
                 vBox.setPadding(new Insets(11,12,13,14));
                 docPane = new DocPane();
@@ -188,6 +200,7 @@ public class InformationLayout extends ScrollPane{
                     textAreaForAnnotation.setPrefRowCount(1);
                     textAreaForAnnotation.setText(information.annotation);
                     labelInDocPane.setFont(Font.font(15));
+                    labelInDocPane.setTextFill(Color.GREENYELLOW);
                     textAreaInDocPane.setFont(Font.font(15));
                     textAreaInDocPane.setPrefRowCount(1);
                     textAreaInDocPane.setText(information.docComment.description);
@@ -287,10 +300,10 @@ public class InformationLayout extends ScrollPane{
 
                     public CommentPane(int line, String[] textArray){
                         this.line = line;
-                        hBoxInCommentPane.setAlignment(Pos.BASELINE_LEFT);
+                        hBoxInCommentPane.setAlignment(Pos.CENTER);
                         labelInCommentPane.setPadding(new Insets(0,0,0,10));
                         labelInCommentPane.setText(textArray[0]);
-                        labelInCommentPane.setTextFill(Color.GREEN);
+                        labelInCommentPane.setTextFill(Color.GREENYELLOW);
                         textFieldInCommentPane.setText(textArray[1]);
                         this.setAction();
                         this.getChild();
