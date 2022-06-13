@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class App extends Application {
+    public static Stage mainStage;
     @Override
     public void start(Stage stage) throws IOException {
+        mainStage = stage;
         DataHolder DH = DataHolder.getInstance();
         DH.codeType = new codeType("");
         DH.codeData = new codeData("",DH.codeType.getTypeList());
@@ -28,9 +30,9 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("AppLayout.fxml"));
         System.out.println(fxmlLoader);
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("註解編輯器");
-        stage.setScene(scene);
-        stage.show();
+        mainStage.setTitle("註解編輯器");
+        mainStage.setScene(scene);
+        mainStage.show();
     }
 
     public static void main(String[] args)

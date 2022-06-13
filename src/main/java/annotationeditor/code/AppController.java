@@ -237,19 +237,20 @@ public class AppController implements Initializable {
 
     //================================================ 視窗按鍵 =========================================================
     public void mouseEnterExit_bar(){
+        //todo
         exit_bar.setBlendMode(BlendMode.DARKEN);
     }
     public void mouseExitExit_bar(){
         exit_bar.setBlendMode(BlendMode.LIGHTEN);
     }
     public void exitButtonOnclick(){
-        System.exit(0);
+        App.mainStage.close();
     }
     public void enlargeButtonOnclick(){
-        System.exit(0);
+        App.mainStage.setFullScreen(true);
     }
     public void smallButtonOnclick(){
-        System.exit(0);
+        App.mainStage.setIconified(true);
     }
 
 // =============================================== Private Methods =====================================================
