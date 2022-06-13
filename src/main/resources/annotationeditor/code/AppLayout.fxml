@@ -278,12 +278,12 @@
          <children>
             <HBox alignment="CENTER_RIGHT" blendMode="HARD_LIGHT" cache="true" layoutX="-66.0" layoutY="-37.0" pickOnBounds="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="35.0" fitWidth="26.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="26.0" focusTraversable="true" onMouseClicked="#smallButtonOnclick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icon/002-delete.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#enlargeButtonOnclick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/icon/003-fullscreen.png" />
                      </image>
