@@ -1,61 +1,61 @@
 .mainBackgroundColor{
-    -fx-background-color: #ffffffff;
+    -fx-background-color: #800080ff;
 }.myButton {
-    -fx-background-color: #ffccccff;
+    -fx-background-color: #111c26ff;
     -fx-background-radius: 10;
-    -fx-border-color: #b3661aff;
+    -fx-border-color: #33ffffff;
     -fx-border-radius: 10;
 
     -fx-font-family: Consolas;
     -fx-font-weight: bold;
-    -fx-text-fill: #b3661aff;
+    -fx-text-fill: #ffffffff;
     -fx-highlight-fill: #ffffff;
 }.TreeView{
-    -fx-background-color:  #ffffffff;
+    -fx-background-color:  #800080ff;
     -fx-background-radius: 10;
-    -fx-border-color: #b3661aff;
+    -fx-border-color: #33ffffff;
     -fx-border-radius: 10;
 }
 .TreeView .tree-cell{
    -fx-font-family: Consolas;
-   -fx-background-color:  #ffffffff;
-   -fx-text-fill: #50c6e4ff
+   -fx-background-color:  #800080ff;
+   -fx-text-fill: #ffffffff;
    -fx-background-radius: 10;
 }
 
 .codeView{
-    -fx-background-color: #ffffffff;
+    -fx-background-color: #800080ff;
     -fx-background-radius: 10;
-    -fx-border-color: #b3661aff;
+    -fx-border-color: #33ffffff;
     -fx-border-radius: 10;
 
     -fx-font-family: Consolas;
-    -fx-text-fill: #b3661aff;
+    -fx-text-fill: #ffffffff;
     -fx-highlight-fill: #ffffff;
-    -fx-highlight-text-fill: #ffffffff;
+    -fx-highlight-text-fill: #800080ff;
 }
 .combo-box{
-    -fx-background-color: #ffccccff;
+    -fx-background-color: #111c26ff;
     -fx-background-radius: 10;
-    -fx-border-color: #b3661aff;
+    -fx-border-color: #33ffffff;
     -fx-border-radius: 10;
 }
 .combo-box .cell{
-    -fx-background-color: #ffccccff;
+    -fx-background-color: #111c26ff;
     -fx-background-radius: 10;
     -fx-font-family: Consolas;
-    -fx-text-fill: #b3661aff;
+    -fx-text-fill: #ffffffff;
 }
 .combo-box .list-view {
-    -fx-background-color: #ffccccff;
+    -fx-background-color: #111c26ff;
     -fx-background-radius: 10;
-    -fx-border-color: #b3661aff;
+    -fx-border-color: #33ffffff;
     -fx-border-radius: 10;
 }
 .combo-box .list-view .list-cell{
-    -fx-background-color: #ffccccff;
+    -fx-background-color: #111c26ff;
     -fx-background-radius: 10;
 
     -fx-font-family: Consolas;
-    -fx-text-fill: #b3661aff;
+    -fx-text-fill: #ffffffff;
 }

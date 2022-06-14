@@ -11,18 +11,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,6 +34,7 @@ public class AppController implements Initializable {
         @FXML private AnchorPane right_pane;
     @FXML private AnchorPane readMeMdEditor_view;
     @FXML private AnchorPane exit_bar;
+    @FXML private HBox exit_bar_content;
 
     @FXML private TextArea codeView;
 
@@ -69,14 +69,23 @@ public class AppController implements Initializable {
 
     private InformationLayout informationLayout_pane;
     private String codeTypes_path_abs = "src/main/resources/annotationeditor/CodeTypes"; //fix**
-    private String cssFile_path_abs = "src/main/resources/annotationeditor/image/"; //fix**
+    private String cssFile_path_abs = "src/main/resources/annotationeditor/css/"; //fix**
     private File selectedItem;
 
     //colorPicker
     @FXML private ColorPicker background_ColorPicker;
     @FXML private ColorPicker button_ColorPicker;
-    @FXML private ColorPicker buttonBorder_ColorPicker;
-    @FXML private ColorPicker buttonText_ColorPicker;
+    @FXML private ColorPicker Border_ColorPicker;
+    @FXML private ColorPicker Text_ColorPicker;
+    private String backgroundColor_code;
+    private String buttonColor_code;
+    private String borderColor_code;
+    private String textColor_code;
+    private final String backgroundColor_code_default = "111c26";
+    private final String buttonColor_code_default = "111c26";
+    private final String borderColor_code_default = "33ffff";
+    private final String textColor_code_default = "ffffff";
+
     //unsorted
     @FXML private AnchorPane mainScene;
     //================================================ todolist  =======================================================
@@ -95,6 +104,8 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
         comboBoxInitialize();
         sideBarInitialize();
+        colorPickerInitialize();
+        changeColor();
         loadTreeTable();
         sideBar_View.setVisible(true);
         settings_pane.setVisible(true);
@@ -141,7 +152,15 @@ public class AppController implements Initializable {
         RootPath_textField.setText(new File(RootPath_textField.getText()).getParent());
         loadTreeTable();
     }
-
+    public void resetColorPicker(){
+        background_ColorPicker.setValue(Color.valueOf(backgroundColor_code_default));
+        button_ColorPicker.setValue(Color.valueOf(buttonColor_code_default));
+        Border_ColorPicker.setValue(Color.valueOf(borderColor_code_default));
+        Text_ColorPicker.setValue(Color.valueOf(textColor_code_default));
+        changeColor();
+    }
+    /** 修改顏色
+     */
     public void changeColor(){
         System.out.println("change");
         try{
@@ -150,10 +169,11 @@ public class AppController implements Initializable {
             temp.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
 
-            String backgroundColor_code = background_ColorPicker.getValue().toString().substring(2);
-            String buttonColor_code = button_ColorPicker.getValue().toString().substring(2);
-            String borderColor_code = buttonBorder_ColorPicker.getValue().toString().substring(2);
-            String textColor_code = buttonText_ColorPicker.getValue().toString().substring(2);
+            backgroundColor_code = background_ColorPicker.getValue().toString().substring(2);
+            buttonColor_code = button_ColorPicker.getValue().toString().substring(2);
+            borderColor_code = Border_ColorPicker.getValue().toString().substring(2);
+            textColor_code = Text_ColorPicker.getValue().toString().substring(2);
+            saveUserStyle_settings();
 
             bw.write("" +
                     ".mainBackgroundColor{\n" +
@@ -233,21 +253,20 @@ public class AppController implements Initializable {
         }catch(Exception e){
             e.printStackTrace();
         }
+        //fixme
+        if(informationLayout_pane != null) informationLayout_pane.setBackgroundColor(backgroundColor_code);
     }
 
     //================================================ 視窗按鍵 =========================================================
     public void mouseEnterExit_bar(){
-        //todo
-        exit_bar.setBlendMode(BlendMode.DARKEN);
+        exit_bar_content.setVisible(true);
     }
-    public void mouseExitExit_bar(){
-        exit_bar.setBlendMode(BlendMode.LIGHTEN);
-    }
+    public void mouseExitExit_bar(){exit_bar_content.setVisible(false);}
     public void exitButtonOnclick(){
         App.mainStage.close();
     }
     public void enlargeButtonOnclick(){
-        App.mainStage.setFullScreen(true);
+        App.mainStage.setMaximized(true);
     }
     public void smallButtonOnclick(){
         App.mainStage.setIconified(true);
@@ -300,7 +319,7 @@ public class AppController implements Initializable {
     /* load informationLayout
     * */
     private void loadInformationLayout(String filePath_abs, String codeType_abs){
-        informationLayout_pane = new InformationLayout(new codeData(filePath_abs,new codeType(codeType_abs).getTypeList()).getInfoList());
+        informationLayout_pane = new InformationLayout(new codeData(filePath_abs, new codeType(codeType_abs).getTypeList()).getInfoList(),backgroundColor_code);
         left_pane.getChildren().clear();
         informationLayout_pane.prefHeightProperty().bind(left_pane.heightProperty());
         informationLayout_pane.prefWidthProperty().bind(left_pane.widthProperty());
@@ -352,7 +371,7 @@ public class AppController implements Initializable {
         translateExit.play();
 
         sideBar_content.maxWidthProperty().bind(main_view.widthProperty().divide(3));
-        sideBar_content.minWidthProperty().bind(main_view.widthProperty().divide(6));//fixme: sidebar width
+        sideBar_content.minWidthProperty().bind(main_view.widthProperty().divide(6));
         sideBar.setOnMouseEntered(event -> translateEnter.play());
         sideBar_View.setOnMouseExited(event -> {
             if(sideBar_View.getCursor() != Cursor.E_RESIZE && !codeTypeFilter_comboBox.showingProperty().getValue() && !fileFilter_comboBox.showingProperty().getValue()){
@@ -397,6 +416,11 @@ public class AppController implements Initializable {
             setAllInvisible(main_view);
             annotationEditor_view.setVisible(true);
         });
+        //todo: rotate
+        user_icon.setOnMouseEntered(event -> user_icon.setRotate(10));
+        user_icon.setOnMouseExited(event -> user_icon.setRotate(0));
+        settings_icon.setOnMouseEntered(event -> settings_icon.setRotate(10));
+        settings_icon.setOnMouseExited(event -> settings_icon.setRotate(0));
     }
 
     /* initialize comboBox
@@ -415,6 +439,42 @@ public class AppController implements Initializable {
         codeTypeFilter_comboBox.setItems(ob2);
         codeTypeFilter_comboBox.setValue(ob2.get(0));
     }
+    private void saveUserStyle_settings(){
+        try{
+            File userStyle_settings_file = new File(cssFile_path_abs + "userStyle_settings.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(userStyle_settings_file));
+            bw.write("backgroundColor_code = "+ backgroundColor_code +"\n" +
+                            "buttonColor_code = "+ buttonColor_code +"\n" +
+                            "borderColor_code = "+ borderColor_code +"\n" +
+                            "textColor_code = "+ textColor_code +"\n"
+                    );
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void colorPickerInitialize(){
+        try{
+            File userStyle_settings_file = new File(cssFile_path_abs + "userStyle_settings.txt");
+            BufferedReader bf = new BufferedReader(new FileReader(userStyle_settings_file));
+            String line;
+            while((line = bf.readLine() )!= null){
+                switch (line.substring(0,line.indexOf(" = "))){
+                    case "backgroundColor_code" -> backgroundColor_code = line.substring(line.indexOf(" = ")+3);
+                    case "buttonColor_code" -> buttonColor_code = line.substring(line.indexOf(" = ")+3);
+                    case "borderColor_code" -> borderColor_code = line.substring(line.indexOf(" = ")+3);
+                    case "textColor_code" -> textColor_code = line.substring(line.indexOf(" = ")+3);
+                    default -> System.out.println("Invalid Color code in userStyle_setting.text");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        background_ColorPicker.setValue(Color.valueOf(backgroundColor_code));
+        button_ColorPicker.setValue(Color.valueOf(buttonColor_code));
+        Border_ColorPicker.setValue(Color.valueOf(borderColor_code));
+        Text_ColorPicker.setValue(Color.valueOf(textColor_code));
+    }
 
     /* set all the other Panes invisible
     * */
@@ -423,9 +483,5 @@ public class AppController implements Initializable {
             parentPane.getChildren().get(i).setVisible(false);
         }
     }
-    private void reloadColorChanger(){
-        //todo 0
-    }
-
 
 }
