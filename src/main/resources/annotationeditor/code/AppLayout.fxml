@@ -31,16 +31,18 @@
                       <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="355.0" styleClass="mainBackgroundColor" stylesheets="@../css/style_main.css" />
                       <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="mainBackgroundColor" stylesheets="@../css/style_main.css">
                            <children>
-                              <TextArea fx:id="codeView" editable="false" layoutY="35.0" prefHeight="402.0" prefWidth="321.0" stylesheets="@../css/style_main.css" text="&#10;&#10;&#10;(ﾒﾟДﾟ)ﾒ" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
-                              <HBox alignment="CENTER" layoutX="9.0" layoutY="347.0" prefHeight="50.0" prefWidth="292.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <VBox alignment="CENTER" layoutX="10.0" layoutY="35.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#preview" styleClass="myButton" stylesheets="@../css/style_main.css" text="Preview" />
-                                    <Button mnemonicParsing="false" onAction="#save" styleClass="myButton" stylesheets="@../css/style_main.css" text=" Save " />
+                                    <TextArea fx:id="codeView" editable="false" prefHeight="402.0" prefWidth="321.0" stylesheets="@../css/style_main.css" text="ttftfffttttttttttfffffLftfftttttttttt111tttt1111111tttt111111ttttt11111tttttttttttttttttttt11111111t&#10;ttfttttttttttttttfffLLLftffffffffftttttt111111111ttfffftt1tt1111111111111111ttttttftttttttt1111111tt&#10;ttftttttttttttttffffLftttfffffffLLLft1tttttft111tfftttfttttttttt111111ttttttfffftffffttttttt11111tt1&#10;ttttttttttttttttfffLfttffffffLLffffttttttttttt1ttti;;;;::;i1tttt111111tffffffffftttfffffttt11111ttt1&#10;tttttttttttfffffttffftffffffffffttfftttttt1ttt111i,,,,,,,,,;11111t1111111tffffLLffttfLfft111111ttttt&#10;ttttttttttffLLLLfttttffLLLfftttttfLftttttttffft1i::,,,,,,,,,:1t11t111tt1111ttffffftttftt1tt1111ttttt&#10;ttttttttffLLLLLLLffttfLLLfttfLfftfLLtttttfffffti:;;iiiiiiii::1tt11111tftt1111ttffffttt11tffft11ttttt&#10;tttttttfffLLLLLLLLLftffftttffLffftfftttttffffft::;;iii1i111i:1ttt1111ttt1tttt11tffLfttttfffffftttttt&#10;tttttttffLLLLLLLLLfttttffftffLfftfftttttfffffft;;;;;;;iiiiii;tttt11111111ttftttttttt11tffffffffffttt&#10;tttfftfffLLLLLLLLLfttfftfLfffffffLLftttttfffft1ii;;;;;iiiiiitfttt11111ttt1ttt11tttt11ttfffffLLfLfttt&#10;ttfLLfffffLLLLLLLfftfLLftfffLLffLLLftttttttfftiii;;i;;ii111itfft111111tfft11t11tt1tttttfffLLLLLLLfff&#10;tfffffttftfLLLffttttffffftfLLLLfLLLftttft111tt1iii;;;;iiiii1tt111tt111tffttfftt11tfftttffLLLLLLLLfff&#10;ttttfttffttffftttttttttttttfLLLffLLftttt1tttt11t1i;;;iiii1111t11111111tffttffftttttttt1ttfLLLfffffff&#10;ttfLffffffftttfffffffffttftttfLfffLftttttfffft11i;;;;iiii111tfttt11111ttt1fffttt1ttt1tttttfLLffftttt&#10;ttffffffffftttfffffffffttfftttfttttttttffft11111i;;;;;iii1tt11tttt1111t111ffttffttfffffLLfttttfLffff&#10;ttffffffffttttffffffffttttttttttffftt11ttt1111t1i;;;iii1i1itt11ttt111111t11t1ttft1ttffffLLftttfLLLLL&#10;tttffffffffttfffffffftttttt1111tffftttt11i;::i1iii;;;iii1i,:;i11t11111tttt1111tt11ttffffLfftttffLLLf&#10;ttttttttfffttfffttttttttffttt11ttft1ii;:,....;i;;;ii;;i1t:,...,:;i1111tttt111ttt1111tttffffftfLLLLLf&#10;tfttttttttttttttttttttfffftttt11t1:,,........ii:;;iii1tt1,,,......,,;i1tt11111ttttt11111ttfftffffftt&#10;tfttfffffttttttfffft1tffffttfft11;,..........:;::;ii11t1:,,,...,,:,...,it11tt11tffffttttttt1ttttffft&#10;ttttfffffftttfffffft11tfffttfttt1,....,,......,:;;;;;;i,.......:iii;;,.,1t1ttt1tffftttttfftt11tfffff&#10;1tttffffftt1ttfffft1111tfttft11ti,.............;i;;;;;:........:iiiii:..it11tt1tfftt1tfffffft1fLffLf&#10;tttttffttttt11tttt1tttt1tttt1tt;,..............i1;;;;;,........,;iii;,..it111t11ttttttttfftt111fffLf&#10;tfftttttttfftt1111ttfft11111tft:...............;i;;;;:,.........:;ii:..,ittt111111tfftttttt1tt1tffft&#10;ttttttttttttttt11ttttttt11ttff1,...............,::::::......... ,;ii:...itttt111ttffffft1tttfttttttt&#10;tfffttttffftttt11ttttttt111tft;,...........  ..,:;:::,...........,:;:...;ttttt11ttfffffttttttttffttf&#10;tfffttttfffffft11ttttttf11111;:,..... .....,:::::::::...............,...:1ttt1111fffffffttfffffffttf&#10;tfffttttfffffft11ttttttt11ti,,...........,:;i;;;:::::..................,.:tt11111tffffffttfffffffttf&#10;tffftttttttfff111ttttttt111,.,,,,...,,..,;;;;;i;:,::,....................,;i1t111tffffLfttfffftffttt&#10;tttttttttttttt111ttttttt11t:.......,....,:;;;;;:::,:,.......................:1t11tfffffftttffttffttt&#10;ttttt11ttttttt11tttttttt11t1,............,,,...,::::.........................:111ttttttt11ttttttfttt&#10;ttttt1tttttttt11ttttttfft1t1:,............  .. ,:::,........................,i111ttttttt11ttttttfttt&#10;1tttt1ttfttttt11tfftttfftttttt1;::,,::.........,:,,,........................i1111ttttttt111tttttfttt&#10;1ttt11tttttttt11tttttttttttttttttt111i.........,::,,.................   . .;t11111ttt1tt111ttttttt1t&#10;11t111tttt1tt111111111tttttttttttt111i,........,:,,...................,..,itttt111111111111111111111&#10;1111111111111111111111tttttttttttt111i,....... ,:....................i111ttttttt11111111111111111111&#10;1111111111111111111111ttttttttttt1111i,....... ,:,::,................,i1t11tttttt1t11111111111111111&#10;111111111111111111111111tttttttt11111i,........,::;:,..................;1ttttttt11111111111111111111&#10;1111111111111111111111111tttt11111111i........ ,,:::,..................,1ttttttttttt1111111tt1t11111&#10;1111111111111111111111111111111111111i,........,,:::,...................it111ttttt11t11111ttttt11111&#10;111111111111111111111111111111111111t1,........,,,:::,..................,1t1ttttttt1tttt11ttttt11111&#10;11111111111111111111111111111111111111,........,,,;;::,..................i111ttttttttttttttttttt1111" VBox.vgrow="ALWAYS" />
+                                    <Label fx:id="msg" alignment="CENTER" text="Save Successfully" textAlignment="CENTER" textFill="RED" />
+                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="292.0" spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#preview" styleClass="myButton" stylesheets="@../css/style_main.css" text="Preview" />
+                                          <Button mnemonicParsing="false" onAction="#save" styleClass="myButton" stylesheets="@../css/style_main.css" text=" Save " />
+                                       </children>
+                                    </HBox>
                                  </children>
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </HBox>
+                              </VBox>
                            </children>
                         </AnchorPane>
                     </items>
@@ -138,11 +140,11 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="sideBar_View" layoutY="50.0" prefHeight="536.0" prefWidth="271.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="sideBar_View" layoutY="50.0" prefHeight="536.0" prefWidth="271.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
             <StackPane fx:id="sideBar_content" maxWidth="500.0" prefHeight="588.0" prefWidth="283.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane fx:id="fileView_pane" prefHeight="536.0" prefWidth="309.0" visible="false">
+                  <AnchorPane fx:id="fileView_pane" prefHeight="536.0" prefWidth="309.0">
                      <children>
                         <VBox nodeOrientation="LEFT_TO_RIGHT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -200,7 +202,7 @@
                                           <Font name="Consolas Bold" size="12.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadInformationLayout" stylesheets="@../css/style_main.css" HBox.hgrow="ALWAYS" />
+                                    <ComboBox fx:id="codeTypeFilter_comboBox" accessibleRole="BUTTON" onAction="#reloadLeftRightPane" stylesheets="@../css/style_main.css" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -209,7 +211,7 @@
                                     <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                  </padding>
                               </HBox>
-                              <TreeView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="430.0" prefWidth="225.0" styleClass="TreeView" stylesheets="@../css/style_main.css" VBox.vgrow="ALWAYS">
+                              <TreeView fx:id="fileView_treeTable" onMouseClicked="#selectItem" prefHeight="430.0" prefWidth="225.0" stylesheets="@../css/style_main.css" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin>
