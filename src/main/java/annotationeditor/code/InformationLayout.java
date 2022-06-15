@@ -86,7 +86,7 @@ public class InformationLayout extends ScrollPane{
             private RotateTransition animation2 = new RotateTransition(Duration.millis(500),button);//控制button的旋轉動畫
 
             public InfoPane(codeInformation information) {
-                this.information = new codeInformation(information.lineIndex, information.name, information.type ,information.annotation);
+                this.information = information;
                 this.information.isDocCommentExist = information.isDocCommentExist;
                 this.information.docComment = information.docComment;
                 this.setStyle("-fx-background-radius: 10;-fx-background-color: #38424D");
