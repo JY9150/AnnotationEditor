@@ -13,6 +13,9 @@
     -fx-highlight-fill: #ffffff;
     -fx-highlight-text-fill: #111C26;
 }
+.button:hover{
+   -fx-background-color: #d81b60
+}
 
 .TreeView{
     -fx-background-color: #111C26;
@@ -26,8 +29,14 @@
    -fx-text-fill: #ffffff;
    -fx-background-radius: 10;
 }
+.TreeView .tree-cell:hover{
+   -fx-background-color: #d81b60
+}
+.TreeView .tree-cell:selected{
+   -fx-background-color: #d81b60
+}
 
-.codeView{
+.text-area{
     -fx-background-color: #111C26;
     -fx-background-radius: 10;
     -fx-border-color: #33ffff;

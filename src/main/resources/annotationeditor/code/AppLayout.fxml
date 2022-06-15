@@ -24,18 +24,18 @@
    <children>
       <AnchorPane fx:id="main_view" prefHeight="565.0" prefWidth="742.0" styleClass="mainBackgroundColor" stylesheets="@../css/style_main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane fx:id="annotationEditor_view" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="annotationEditor_view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <SplitPane dividerPositions="0.4648241206030151" prefHeight="527.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane fx:id="left_pane" minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="355.0" styleClass="mainBackgroundColor" stylesheets="@../css/style_main.css" />
                       <AnchorPane fx:id="right_pane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="mainBackgroundColor" stylesheets="@../css/style_main.css">
                            <children>
-                              <TextArea fx:id="codeView" editable="false" layoutY="35.0" prefHeight="402.0" prefWidth="321.0" styleClass="codeView" stylesheets="@../css/style_main.css" text="&#10;&#10;&#10;(ﾒﾟДﾟ)ﾒ" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
+                              <TextArea fx:id="codeView" editable="false" layoutY="35.0" prefHeight="402.0" prefWidth="321.0" stylesheets="@../css/style_main.css" text="&#10;&#10;&#10;(ﾒﾟДﾟ)ﾒ" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
                               <HBox alignment="CENTER" layoutX="9.0" layoutY="347.0" prefHeight="50.0" prefWidth="292.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" styleClass="myButton" stylesheets="@../css/style_main.css" text="Preview" />
-                                    <Button mnemonicParsing="false" styleClass="myButton" stylesheets="@../css/style_main.css" text=" Save " />
+                                    <Button mnemonicParsing="false" onAction="#preview" styleClass="myButton" stylesheets="@../css/style_main.css" text="Preview" />
+                                    <Button mnemonicParsing="false" onAction="#save" styleClass="myButton" stylesheets="@../css/style_main.css" text=" Save " />
                                  </children>
                                  <padding>
                                     <Insets top="10.0" />
@@ -49,13 +49,17 @@
             </AnchorPane>
             <AnchorPane fx:id="readMeMdEditor_view" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label alignment="CENTER" layoutX="281.0" layoutY="238.0" prefHeight="60.0" prefWidth="147.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="readme.md Editor&#10;施工中...&#10;" textAlignment="CENTER">
-                     <font>
-                        <Font name="Consolas Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  <StackPane layoutX="281.0" layoutY="238.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="147.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="readme.md Editor&#10;施工中...&#10;" textAlignment="CENTER">
+                           <font>
+                              <Font name="Consolas Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
                </children></AnchorPane>
-            <AnchorPane fx:id="settings_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="settings_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <StackPane layoutX="198.0" layoutY="113.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -134,11 +138,11 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="sideBar_View" layoutY="50.0" prefHeight="536.0" prefWidth="271.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="sideBar_View" layoutY="50.0" prefHeight="536.0" prefWidth="271.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
          <children>
             <StackPane fx:id="sideBar_content" maxWidth="500.0" prefHeight="588.0" prefWidth="283.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane fx:id="fileView_pane" prefHeight="536.0" prefWidth="309.0">
+                  <AnchorPane fx:id="fileView_pane" prefHeight="536.0" prefWidth="309.0" visible="false">
                      <children>
                         <VBox nodeOrientation="LEFT_TO_RIGHT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -217,7 +221,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9C9F96;">
+                  <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9C9F96;" visible="false">
                      <children>
                         <Label alignment="TOP_CENTER" contentDisplay="RIGHT" layoutX="11.0" layoutY="10.0" prefHeight="568.0" prefWidth="251.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="&#10;&#10;&#10;============ Project Info ============&#10;&#10;May 5,2022 ~ &#10;Language : Java&#10;UI : JavaFX&#10;It's a 【 IntelliJ IDEA 】 project.&#10;&#10;========== About us ==========&#10;&#10;Project Contributors&#10;Boss : 天真&#10;Workers : howard50515, JasonYEH&#10;&#10;Contact us on Discord:&#10;天真#3191, 豪豪喔#8524, Jason 葉#0687&#10;&#10;&#10;&#10;=========== Find a Bug ? ===========&#10;&#10;FIX IT YOURSELF !!&#10;↓↓ Github link ↓↓&#10;https://github.com/YsNaive/AnnotationEditor&#10;=======================&#10;&#10;Copyrights and Licenses does not exist" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="10.0">
                            <font>
@@ -258,9 +262,9 @@
                         <Image url="@../image/icon/home.png" />
                      </image>
                   </ImageView>
-                  <StackPane fx:id="annotationEditor_icon" prefHeight="150.0" prefWidth="200.0" styleClass="myButton" stylesheets="@../css/style_main.css" VBox.vgrow="ALWAYS" />
-                  <StackPane fx:id="readMeMdEditor_icon" layoutX="15.0" layoutY="197.0" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f30000;" VBox.vgrow="ALWAYS" />
-                  <StackPane prefHeight="150.0" prefWidth="200.0" />
+                  <StackPane fx:id="annotationEditor_icon" maxHeight="40.0" minHeight="40.0" styleClass="myButton" stylesheets="@../css/style_main.css" VBox.vgrow="ALWAYS" />
+                  <StackPane fx:id="readMeMdEditor_icon" layoutX="15.0" layoutY="197.0" maxHeight="40.0" minHeight="40.0" style="-fx-background-color: #f30000;" VBox.vgrow="ALWAYS" />
+                  <StackPane prefHeight="407.0" prefWidth="41.0" VBox.vgrow="ALWAYS" />
                   <ImageView fx:id="user_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                      <image>
                         <Image url="@../image/icon/user.png" />

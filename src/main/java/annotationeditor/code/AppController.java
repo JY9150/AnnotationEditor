@@ -92,7 +92,7 @@ public class AppController implements Initializable {
     //TODO: 2022/5/5 rename everything
 
     //todo : use fileSystem
-    //todo : 右上導覽列
+    //todo : codeView scrollPane bug
 
     //fixme : fileView 選擇時沒有highlight
 
@@ -108,7 +108,16 @@ public class AppController implements Initializable {
         changeColor();
         loadTreeTable();
         sideBar_View.setVisible(true);
-        settings_pane.setVisible(true);
+        fileView_pane.setVisible(true);
+        annotationEditor_view.setVisible(true);
+
+
+//        File f = new File("C:\\Users\\jason\\Desktop\\A\\A4_110504513.java");
+//        codeType ct = new codeType(codeTypes_path_abs + codeTypeFilter_comboBox.getValue());
+//        codeData cd = new codeData(f.getAbsolutePath(), ct.getTypeList());
+//        informationLayout_pane = new InformationLayout(cd.getInfoList(),backgroundColor_code);
+//        codeView.setText(cd.OutputProcessedScript());
+//        App.mainStage.set fixme
     }
 
 
@@ -122,7 +131,9 @@ public class AppController implements Initializable {
     /** 若有更改 codeType 重新 load informationLayout
      */
     public void reloadInformationLayout(){
-        loadInformationLayout(selectedItem.getAbsolutePath(), codeTypes_path_abs + codeTypeFilter_comboBox.getValue());
+        if(selectedItem != null){
+            loadInformationLayout(selectedItem.getAbsolutePath(), codeTypes_path_abs + codeTypeFilter_comboBox.getValue());
+        }
     }
 
     /** fileView_treeTable 物件被選擇
@@ -137,7 +148,7 @@ public class AppController implements Initializable {
                     reloadTreeTable();
                     RootPath_textField.setText(selectedItem.toString());
                 }else{
-                    loadInformationLayout(selectedItem.getAbsolutePath(), codeTypes_path_abs + codeTypeFilter_comboBox.getValue());
+                    reloadInformationLayout();
                 }
             }catch (NullPointerException e){
                 System.out.println("empty selection!");
@@ -150,8 +161,11 @@ public class AppController implements Initializable {
      */
     public void backButtonOnClick(){
         RootPath_textField.setText(new File(RootPath_textField.getText()).getParent());
-        loadTreeTable();
+        reloadTreeTable();
     }
+
+    /** 將顏色設定回預設設定
+     */
     public void resetColorPicker(){
         background_ColorPicker.setValue(Color.valueOf(backgroundColor_code_default));
         button_ColorPicker.setValue(Color.valueOf(buttonColor_code_default));
@@ -181,62 +195,43 @@ public class AppController implements Initializable {
                     "}" +
                     ".myButton {\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
-                    "    -fx-background-radius: 10;\n" +
                     "    -fx-border-color: #" +borderColor_code+";\n" +
-                    "    -fx-border-radius: 10;\n" +
                     "\n" +
-                    "    -fx-font-family: Consolas;\n" +
-                    "    -fx-font-weight: bold;\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "    -fx-highlight-fill: #ffffff;\n" +
                     "}" +
                     ".TreeView{\n" +
                     "    -fx-background-color:  #"+backgroundColor_code+";\n" +
-                    "    -fx-background-radius: 10;\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "    -fx-border-radius: 10;\n" +
                     "}\n" +
                     ".TreeView .tree-cell{\n" +
-                    "   -fx-font-family: Consolas;\n" +
                     "   -fx-background-color:  #"+backgroundColor_code+";\n" +
                     "   -fx-text-fill: #"+textColor_code+";\n" +
-                    "   -fx-background-radius: 10;\n" +
                     "}\n" +
                     "\n" +
-                    ".codeView{\n" +
+                    ".text-area{\n" +
                     "    -fx-background-color: #"+backgroundColor_code+";\n" +
-                    "    -fx-background-radius: 10;\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "    -fx-border-radius: 10;\n" +
                     "\n" +
-                    "    -fx-font-family: Consolas;\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "    -fx-highlight-fill: #ffffff;\n" +
                     "    -fx-highlight-text-fill: #"+backgroundColor_code+";\n" +
                     "}\n" +
                     ".combo-box{\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
-                    "    -fx-background-radius: 10;\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "    -fx-border-radius: 10;\n" +
                     "}\n" +
                     ".combo-box .cell{\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
-                    "    -fx-background-radius: 10;\n" +
-                    "    -fx-font-family: Consolas;\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "}\n" +
                     ".combo-box .list-view {\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
-                    "    -fx-background-radius: 10;\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "    -fx-border-radius: 10;\n" +
                     "}\n" +
                     ".combo-box .list-view .list-cell{\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
-                    "    -fx-background-radius: 10;\n" +
                     "\n" +
-                    "    -fx-font-family: Consolas;\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "}"
                     );
@@ -255,6 +250,10 @@ public class AppController implements Initializable {
         }
         //fixme
         if(informationLayout_pane != null) informationLayout_pane.setBackgroundColor(backgroundColor_code);
+    }
+
+    public void save(){
+
     }
 
     //================================================ 視窗按鍵 =========================================================
@@ -318,12 +317,19 @@ public class AppController implements Initializable {
 
     /* load informationLayout
     * */
+    private codeData cd;
     private void loadInformationLayout(String filePath_abs, String codeType_abs){
-        informationLayout_pane = new InformationLayout(new codeData(filePath_abs, new codeType(codeType_abs).getTypeList()).getInfoList(),backgroundColor_code);
+        cd = new codeData(filePath_abs, new codeType(codeType_abs).getTypeList());
+        informationLayout_pane = new InformationLayout(cd.getInfoList(),backgroundColor_code);
         left_pane.getChildren().clear();
+        //fixme
         informationLayout_pane.prefHeightProperty().bind(left_pane.heightProperty());
         informationLayout_pane.prefWidthProperty().bind(left_pane.widthProperty());
         left_pane.getChildren().add(informationLayout_pane);
+    }
+    public void preview(){
+        //fixme
+        if(cd != null) codeView.setText(cd.OutputProcessedScript());
     }
 
     /* find files and folder in the path and check whether pass teh fileFilter
@@ -439,20 +445,26 @@ public class AppController implements Initializable {
         codeTypeFilter_comboBox.setItems(ob2);
         codeTypeFilter_comboBox.setValue(ob2.get(0));
     }
+
+    /* 儲存使用者顏色喜好設定
+     */
     private void saveUserStyle_settings(){
         try{
             File userStyle_settings_file = new File(cssFile_path_abs + "userStyle_settings.txt");
             BufferedWriter bw = new BufferedWriter(new FileWriter(userStyle_settings_file));
             bw.write("backgroundColor_code = "+ backgroundColor_code +"\n" +
-                            "buttonColor_code = "+ buttonColor_code +"\n" +
-                            "borderColor_code = "+ borderColor_code +"\n" +
-                            "textColor_code = "+ textColor_code +"\n"
+                        "buttonColor_code = "+ buttonColor_code +"\n" +
+                        "borderColor_code = "+ borderColor_code +"\n" +
+                        "textColor_code = "+ textColor_code +"\n"
                     );
             bw.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    /* initialize colorPicker
+     */
     private void colorPickerInitialize(){
         try{
             File userStyle_settings_file = new File(cssFile_path_abs + "userStyle_settings.txt");
