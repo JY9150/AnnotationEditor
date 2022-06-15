@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class codeData {
@@ -208,25 +209,50 @@ public class codeData {
         List<String> output = new ArrayList<>(precessedScript);
         int lineOffset = 0;
         for(codeInformation information : informationList){
-            if(!information.annotation.equals(null)){
-                output.add(information.lineIndex+lineOffset,information.annotation.replace("\n","\n//"));
+            String space = "";
+            for (int i=0;precessedScript.get(information.lineIndex+lineOffset).charAt(i) == ' ' && i<precessedScript.get(information.lineIndex+lineOffset).length()-1;i++)
+                space+=" ";
+            if(!information.annotation.equals("")){
+                output.add(information.lineIndex+lineOffset,space+"/*");
+                lineOffset++;
+                output.add(information.lineIndex+lineOffset,space+information.annotation.replace("\n","\n"+space));
+                lineOffset++;
+                output.add(information.lineIndex+lineOffset,space+"*/");
                 lineOffset++;
             }
-            if(!information.docComment.description.equals(null)){
-                output.add(information.lineIndex+lineOffset,"/**\n*");
-                lineOffset++;
-                output.add(information.lineIndex+lineOffset,information.docComment.description.replace("\n","\n*"));
-                lineOffset++;
-                for(String[] i : information.docComment.comment){
-                    String temp = "* @"+i[0]+" "+i[1];
-                    output.add(information.lineIndex+lineOffset,temp);
-                    lineOffset++;
+
+            boolean isHaveDescription = ! information.docComment.description.equals("");
+            boolean isHaveComment = false;
+            for(String[] i : information.docComment.comment){
+                if(! (Objects.equals(i[1], null) || (Objects.equals(i[1], "")))){
+                    isHaveComment = true;
+                    break;
                 }
             }
-            output.add(information.lineIndex+lineOffset,"*/");
-            lineOffset++;
-        }
 
+            System.out.print(isHaveDescription+" + "+isHaveComment);
+            if(isHaveDescription || isHaveComment){
+                output.add(information.lineIndex+lineOffset,space+"/**");
+                lineOffset++;
+
+                if(isHaveDescription){
+                    output.add(information.lineIndex+lineOffset,space+"* "+information.docComment.description.replace("\n","\n"+space+"* "));
+                    lineOffset++;
+                }
+
+                for(String[] i : information.docComment.comment){
+                    if(i[1] == null) continue;
+                    String temp = "* @"+i[0]+" "+i[1];
+                    output.add(information.lineIndex+lineOffset,space+temp);
+                    lineOffset++;
+                }
+
+                output.add(information.lineIndex+lineOffset,space+"*/");
+                lineOffset++;
+            }
+            System.out.println(information);
+            lineOffset--;
+        }
         String outputStr = "";
         for(String i : output){
             outputStr+=i+"\n";
