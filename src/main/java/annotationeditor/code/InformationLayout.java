@@ -252,11 +252,11 @@ public class InformationLayout extends ScrollPane{
                             this.getChildren().remove(vBoxInDocPane);
                         }
                     });
-                    textAreaForAnnotation.setOnKeyTyped(e->{
+                    textAreaForAnnotation.setOnKeyPressed(e->{
                         information.annotation = textAreaForAnnotation.getText();
                         textAreaChanged(textAreaForAnnotation.getText(), textAreaForAnnotation);
                     });
-                    textAreaInDocPane.setOnKeyTyped(e->{
+                    textAreaInDocPane.setOnKeyPressed(e->{
                         information.docComment.description = textAreaInDocPane.getText();
                         textAreaChanged(textAreaInDocPane.getText(),textAreaInDocPane);
                     });
@@ -326,7 +326,7 @@ public class InformationLayout extends ScrollPane{
                     }
 
                     private void setAction(){
-                        textFieldInCommentPane.setOnKeyTyped(e-> information.docComment.comment.get(line)[1] = textFieldInCommentPane.getText());
+                        textFieldInCommentPane.setOnKeyPressed(e-> information.docComment.comment.get(line)[1] = textFieldInCommentPane.getText());
                     }
                 }
             }
