@@ -87,8 +87,6 @@ public class InformationLayout extends ScrollPane{
 
             public InfoPane(codeInformation information) {
                 this.information = information;
-                this.information.isDocCommentExist = information.isDocCommentExist;
-                this.information.docComment = information.docComment;
                 this.setStyle("-fx-background-radius: 10;-fx-background-color: #38424D");
                 close.setFitHeight(12);
                 close.setFitWidth(12);
@@ -221,6 +219,8 @@ public class InformationLayout extends ScrollPane{
                         commentPanes[i] = new CommentPane(i, information.docComment.comment.get(i));
                         vBoxInDocPane.getChildren().add(commentPanes[i]);
                     }
+                    if (radioButton.isSelected())
+                        this.getChildren().add(vBoxInDocPane);
                 }
 
                 private void listen(){
@@ -263,7 +263,8 @@ public class InformationLayout extends ScrollPane{
                 }
 
                 private void setMouseClicked(){
-                    this.getChildren().add(vBoxInDocPane);
+                    if (!radioButton.isSelected())
+                        this.getChildren().add(vBoxInDocPane);
                     vBox.getChildren().add(this);
                     Queue<Node> nodes = new LinkedList<>();
                     nodes.add(vBox);
@@ -276,7 +277,8 @@ public class InformationLayout extends ScrollPane{
                         //System.out.println(node);
                         node.setOnMouseClicked(e -> selectedInformation = information);
                     }
-                    this.getChildren().remove(vBoxInDocPane);
+                    if (!radioButton.isSelected())
+                        this.getChildren().remove(vBoxInDocPane);
                     vBox.getChildren().removeAll(this);
                 }
 
