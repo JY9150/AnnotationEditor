@@ -120,6 +120,7 @@ public class codeData {
                     }
                     else if(temp.contains("/**")){
                         isAnno = false;
+                        information.isDocCommentExist = true;
                     }
                     else if(temp.contains("//")) {
                         if(temp.length() > 2)
@@ -254,6 +255,54 @@ public class codeData {
             }
             System.out.println(information);
         }
+        String outputStr = "";
+        for(String i : output){
+            outputStr+=i+"\n";
+        }
+        for (String i : precessedScript){
+            System.out.println(i);
+        }
+        return outputStr;
+    }
+    public String OutputProcessedUsage(){
+        List<String> output = new ArrayList<>();
+        for(codeInformation information : informationList){
+
+            String thisline = precessedScript.get(information.lineIndex);
+            String space = "    ";
+            for (int i=0;precessedScript.get(information.lineIndex).charAt(i) == ' ' && i<precessedScript.get(information.lineIndex).length()-1;i++)
+                thisline = thisline.substring(1);
+
+            output.add(thisline);
+            if(!information.annotation.equals("")){
+                output.add(space+information.annotation.replace("\n","\n"+space));
+            }
+            output.add("");
+            boolean isHaveDescription = ! information.docComment.description.equals("");
+            boolean isHaveComment = false;
+            for(String[] i : information.docComment.comment){
+                if(! (Objects.equals(i[1], null) || (Objects.equals(i[1], "")))){
+                    isHaveComment = true;
+                    break;
+                }
+            }
+
+            System.out.print(isHaveDescription+" + "+isHaveComment);
+            if(isHaveDescription || isHaveComment){
+
+                if(isHaveDescription){
+                    output.add(space+information.docComment.description.replace("\n","\n"+space));
+                }
+
+                for(String[] i : information.docComment.comment){
+                    if(i[1] == null) continue;
+                    String temp = "@"+i[0]+" "+i[1];
+                    output.add(space+temp);
+                }
+            }
+            output.add("\n\n");
+        }
+
         String outputStr = "";
         for(String i : output){
             outputStr+=i+"\n";
