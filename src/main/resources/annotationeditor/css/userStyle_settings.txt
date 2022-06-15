@@ -1,0 +1,4 @@
+backgroundColor_code = 111c26ff
+buttonColor_code = 111c26ff
+borderColor_code = 33ffffff
+textColor_code = ffffffff
