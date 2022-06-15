@@ -3,13 +3,13 @@
 }
 .myButton {
     -fx-background-color: #111C26;
-    -fx-background-radius: 10;
     -fx-border-color: #33ffff;
-    -fx-border-radius: 10;
+    -fx-text-fill: #ffffff;
 
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
     -fx-font-family: Consolas;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
     -fx-highlight-fill: #ffffff;
     -fx-highlight-text-fill: #111C26;
 }
@@ -17,33 +17,71 @@
    -fx-background-color: #d81b60
 }
 
-.TreeView{
+
+.tree-view{
     -fx-background-color: #111C26;
-    -fx-background-radius: 10;
     -fx-border-color: #33ffff;
+    -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
-.TreeView .tree-cell{
-   -fx-font-family: Consolas;
-   -fx-background-color:  #111C26;
+.tree-view .tree-cell{
+   -fx-background-color: transparent;
    -fx-text-fill: #ffffff;
+   -fx-font-family: Consolas;
    -fx-background-radius: 10;
 }
-.TreeView .tree-cell:hover{
+.tree-view .tree-cell:hover{
    -fx-background-color: #d81b60
 }
-.TreeView .tree-cell:selected{
+.tree-view .tree-cell:selected{
    -fx-background-color: #d81b60
+}
+.tree-view  .virtual-flow  .corner{
+    -fx-background-color: transparent;
 }
 
-.text-area{
+
+.combo-box{
     -fx-background-color: #111C26;
     -fx-background-radius: 10;
     -fx-border-color: #33ffff;
     -fx-border-radius: 10;
+}
+.combo-box .cell{
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-font-family: Consolas;
+	-fx-text-fill: #ffffff;
+}
+.combo-box .list-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-border-color: #33ffff;
+    -fx-border-radius: 10;
+}
+.combo-box .list-view .list-cell{
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
 
     -fx-font-family: Consolas;
     -fx-text-fill: #ffffff;
+}
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #d81b60
+}
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: #d81b60
+}
+
+.text-field,
+.text-area{
+    -fx-background-color: #111C26;
+    -fx-border-color: #33ffff;
+    -fx-text-fill: #ffffff;
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-font-family: Consolas;
     -fx-highlight-fill: #ffffff;
     -fx-highlight-text-fill: #111C26;
 }
@@ -57,34 +95,13 @@
     -fx-background-color: transparent;
 }
 
-.combo-box{
-    -fx-background-color: #111C26;
-    -fx-background-radius: 10;
-    -fx-border-color: #33ffff;
-    -fx-border-radius: 10;
-}
-.combo-box .cell{
-    -fx-background-color: #111C26;
-    -fx-background-radius: 10;
-    -fx-font-family: Consolas;
-	-fx-text-fill: #ffffff;
-}
-.combo-box .list-view {
-    -fx-background-color: #111C26;
-    -fx-background-radius: 10;
-    -fx-border-color: #33ffff;
-    -fx-border-radius: 10;
-}
-.combo-box .list-view .list-cell{
-    -fx-background-color: #111C26;
-    -fx-background-radius: 10;
 
-    -fx-font-family: Consolas;
-    -fx-text-fill: #ffffff;
+.scroll-pane {
+    -fx-background-color: transparent;
 }
-.combo-box .list-view .list-cell:hover {
-    -fx-background-color: #d81b60
+.scroll-pane .corner{
+    -fx-background-color: transparent;
 }
-.combo-box .list-view .list-cell:selected {
-    -fx-background-color: #d81b60
+.scroll-bar {
+    -fx-background-color: transparent;
 }

@@ -88,13 +88,13 @@ public class AppController implements Initializable {
 
     //unsorted
     @FXML private AnchorPane mainScene;
+    @FXML private Label msg;
     //================================================ todolist  =======================================================
     //TODO: 2022/5/5 rename everything
 
     //todo : use fileSystem
-    //todo : codeView scrollPane bug
 
-    //fixme : fileView 選擇時沒有highlight
+    //fixme : fileView 過度reload
 
     //================================================ initialize ======================================================
 
@@ -112,12 +112,8 @@ public class AppController implements Initializable {
         annotationEditor_view.setVisible(true);
 
 
-//        File f = new File("C:\\Users\\jason\\Desktop\\A\\A4_110504513.java");
-//        codeType ct = new codeType(codeTypes_path_abs + codeTypeFilter_comboBox.getValue());
-//        codeData cd = new codeData(f.getAbsolutePath(), ct.getTypeList());
-//        informationLayout_pane = new InformationLayout(cd.getInfoList(),backgroundColor_code);
-//        codeView.setText(cd.OutputProcessedScript());
-//        App.mainStage.set fixme
+
+//       App.mainStage.se
     }
 
 
@@ -130,9 +126,10 @@ public class AppController implements Initializable {
 
     /** 若有更改 codeType 重新 load informationLayout
      */
-    public void reloadInformationLayout(){
+    public void reloadLeftRightPane(){
         if(selectedItem != null){
             loadInformationLayout(selectedItem.getAbsolutePath(), codeTypes_path_abs + codeTypeFilter_comboBox.getValue());
+            codeView.setText("");
         }
     }
 
@@ -148,7 +145,7 @@ public class AppController implements Initializable {
                     reloadTreeTable();
                     RootPath_textField.setText(selectedItem.toString());
                 }else{
-                    reloadInformationLayout();
+                    reloadLeftRightPane();
                 }
             }catch (NullPointerException e){
                 System.out.println("empty selection!");
@@ -196,23 +193,20 @@ public class AppController implements Initializable {
                     ".myButton {\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
                     "    -fx-border-color: #" +borderColor_code+";\n" +
-                    "\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "    -fx-highlight-fill: #ffffff;\n" +
                     "}" +
                     ".TreeView{\n" +
                     "    -fx-background-color:  #"+backgroundColor_code+";\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "}\n" +
+                    "}" +
                     ".TreeView .tree-cell{\n" +
-                    "   -fx-background-color:  #"+backgroundColor_code+";\n" +
                     "   -fx-text-fill: #"+textColor_code+";\n" +
-                    "}\n" +
-                    "\n" +
+                    "}" +
+                    ".text-field," +
                     ".text-area{\n" +
                     "    -fx-background-color: #"+backgroundColor_code+";\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "    -fx-highlight-fill: #ffffff;\n" +
                     "    -fx-highlight-text-fill: #"+backgroundColor_code+";\n" +
@@ -222,7 +216,6 @@ public class AppController implements Initializable {
                     "    -fx-border-color: #"+borderColor_code+";\n" +
                     "}\n" +
                     ".combo-box .cell{\n" +
-                    "    -fx-background-color: #"+buttonColor_code+";\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "}\n" +
                     ".combo-box .list-view {\n" +
@@ -230,8 +223,6 @@ public class AppController implements Initializable {
                     "    -fx-border-color: #"+borderColor_code+";\n" +
                     "}\n" +
                     ".combo-box .list-view .list-cell{\n" +
-                    "    -fx-background-color: #"+buttonColor_code+";\n" +
-                    "\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "}"
                     );
@@ -253,7 +244,22 @@ public class AppController implements Initializable {
     }
 
     public void save(){
-
+//        //fixme saver save
+//        try {
+//            File saveFile = new File(selectedItem.getAbsolutePath());
+//            BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile));
+//            bw.write(cd.OutputProcessedScript());
+//            bw.flush();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            msg.setText("Save Successfully");
+//        }
+//        msg.setText("Save Successfully");
+    }
+    public void preview(){
+        //fixme
+        if(cd != null) codeView.setText(cd.OutputProcessedScript());
     }
 
     //================================================ 視窗按鍵 =========================================================
@@ -326,10 +332,6 @@ public class AppController implements Initializable {
         informationLayout_pane.prefHeightProperty().bind(left_pane.heightProperty());
         informationLayout_pane.prefWidthProperty().bind(left_pane.widthProperty());
         left_pane.getChildren().add(informationLayout_pane);
-    }
-    public void preview(){
-        //fixme
-        if(cd != null) codeView.setText(cd.OutputProcessedScript());
     }
 
     /* find files and folder in the path and check whether pass teh fileFilter
@@ -404,7 +406,6 @@ public class AppController implements Initializable {
         file_icon.setOnMouseClicked(event -> {
             setAllInvisible(sideBar_content);
             fileView_pane.setVisible(true);
-            loadTreeTable();
         });
         home_icon.setOnMouseClicked(event -> {
             setAllInvisible(sideBar_content);
