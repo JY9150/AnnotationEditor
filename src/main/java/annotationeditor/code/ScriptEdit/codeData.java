@@ -149,10 +149,7 @@ public class codeData {
 
                 if(! isFunction(line).equals("")){
                     codeInformation thisInfo = informationList.get(informationList.size()-1);
-                    List<String> comment = new ArrayList<>();
                     String type = isFunction(line);
-                    if(!type.equals("void"))
-                        comment.add("void");
                     String[] param = line.substring(line.indexOf("(")+1,line.indexOf(")")).split(",");
 
                     for (String p : param){
@@ -172,6 +169,11 @@ public class codeData {
                             newComment[0] = name;
                             thisInfo.docComment.comment.add(newComment);
                         }
+                    }
+                    if(!type.equals("void")){
+                        String[] newComment = new String[2];
+                        newComment[0] = "return "+type;
+                        thisInfo.docComment.comment.add(newComment);
                     }
                 }
 
