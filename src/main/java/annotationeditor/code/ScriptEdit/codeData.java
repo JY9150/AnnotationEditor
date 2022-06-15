@@ -78,12 +78,12 @@ public class codeData {
             String line = input.get(index);
             // 判斷是否為 Class
             if(isClass(line)){
-                informationList.add(new codeInformation(i,line.substring(line.indexOf("class")+6, line.contains("{") ? line.indexOf("{") : line.length()),"class",""));
+                informationList.add(new codeInformation(i-removeCount,line.substring(line.indexOf("class")+6, line.contains("{") ? line.indexOf("{") : line.length()),"class",""));
                 isFound = true;
             }
             else if(! isFunction(line).equals("")){
                 String type = isFunction(line);
-                informationList.add(new codeInformation(i,line.substring(line.indexOf(type), line.contains("{") ? line.indexOf("{") : line.length()),"function",""));
+                informationList.add(new codeInformation(i-removeCount,line.substring(line.indexOf(type), line.contains("{") ? line.indexOf("{") : line.length()),"function",""));
                 isFound = true;
             }
 
@@ -110,13 +110,13 @@ public class codeData {
                         catch (StringIndexOutOfBoundsException e){
 
                         }
-                        information.docComment.addComment("@param"+' '+t,temp.substring(temp.indexOf("@param")+8+t.length()));
+                        information.docComment.addComment("param"+' '+t,temp.substring(temp.indexOf("@param")+8+t.length()));
                     }
                     else if(temp.contains("@return")){
-                        information.docComment.addComment("@return",temp.substring(temp.indexOf("@return")+8));
+                        information.docComment.addComment("return",temp.substring(temp.indexOf("@return")+8));
                     }
                     else if(temp.contains("@see")){
-                        information.docComment.addComment("@see",temp.substring(temp.indexOf("@see")+5));
+                        information.docComment.addComment("see",temp.substring(temp.indexOf("@see")+5));
                     }
                     else if(temp.contains("/**")){
                         isAnno = false;
@@ -142,7 +142,7 @@ public class codeData {
                     else {
                         break;
                     }
-
+                    information.lineIndex--;
                     input.remove(index);
                     index--;
                     removeCount++;
@@ -182,7 +182,6 @@ public class codeData {
             }
         }
         this.precessedScript = input;
-        System.out.print(OutputProcessedScript());
     }
 
     private boolean isClass(String input){
@@ -209,9 +208,12 @@ public class codeData {
         List<String> output = new ArrayList<>(precessedScript);
         int lineOffset = 0;
         for(codeInformation information : informationList){
+
             String space = "";
-            for (int i=0;precessedScript.get(information.lineIndex+lineOffset).charAt(i) == ' ' && i<precessedScript.get(information.lineIndex+lineOffset).length()-1;i++)
+            System.out.println("Line = "+precessedScript.get(information.lineIndex)+" Index = "+information.lineIndex);
+            for (int i=0;precessedScript.get(information.lineIndex).charAt(i) == ' ' && i<precessedScript.get(information.lineIndex).length()-1;i++)
                 space+=" ";
+
             if(!information.annotation.equals("")){
                 output.add(information.lineIndex+lineOffset,space+"/*");
                 lineOffset++;
@@ -251,13 +253,15 @@ public class codeData {
                 lineOffset++;
             }
             System.out.println(information);
-            lineOffset--;
         }
         String outputStr = "";
         for(String i : output){
             outputStr+=i+"\n";
         }
-
+        for (String i : precessedScript){
+            System.out.println(i);
+        }
         return outputStr;
+
     }
 }
