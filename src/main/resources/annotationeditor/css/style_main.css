@@ -14,7 +14,15 @@
     -fx-highlight-text-fill: #111C26;
 }
 .button:hover{
-   -fx-background-color: #d81b60
+    -fx-background-color: #d81b60
+}
+.myLabel {
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Consolas;
+    -fx-font-weight: bold;
+}
+.split-pane {
+    -fx-background-color: transparent;
 }
 
 
@@ -25,19 +33,19 @@
     -fx-border-radius: 10;
 }
 .tree-view .tree-cell{
-   -fx-background-color: transparent;
-   -fx-text-fill: #ffffff;
-   -fx-font-family: Consolas;
-   -fx-background-radius: 10;
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Consolas;
+    -fx-background-radius: 10;
 }
 .tree-view .tree-cell:hover{
-   -fx-background-color: #d81b60
+    -fx-background-color: #d81b60
 }
 .tree-view .tree-cell:selected{
-   -fx-background-color: #d81b60
+    -fx-background-color: #d81b60
 }
 .tree-view  .virtual-flow  .corner{
-    -fx-background-color: transparent;
+     -fx-background-color: transparent;
 }
 
 
