@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
@@ -28,12 +29,12 @@ import java.util.ResourceBundle;
 public class AppController implements Initializable {
     //Main_view
     @FXML private AnchorPane main_view;
+    @FXML private AnchorPane top_bar;
     @FXML private AnchorPane annotationEditor_view;
         //annotationEditor_view
         @FXML private AnchorPane left_pane;
         @FXML private AnchorPane right_pane;
     @FXML private AnchorPane readMeMdEditor_view;
-    @FXML private AnchorPane exit_bar;
     @FXML private HBox exit_bar_content;
 
     @FXML private TextArea codeView;
@@ -44,8 +45,8 @@ public class AppController implements Initializable {
         @FXML private ImageView file_icon;
         @FXML private ImageView home_icon;
         @FXML private ImageView settings_icon;
-        @FXML private StackPane readMeMdEditor_icon;
-        @FXML private StackPane annotationEditor_icon;
+        @FXML private ImageView usageEditor_icon;
+        @FXML private ImageView annotationEditor_icon;
     @FXML private AnchorPane sideBar_View;
     @FXML private StackPane sideBar_content;
         //sideBar_content
@@ -89,6 +90,8 @@ public class AppController implements Initializable {
     //unsorted
     @FXML private AnchorPane mainScene;
     @FXML private Label msg;
+    @FXML private Label file_name_label;
+    @FXML private AnchorPane dragPane;
     //================================================ todolist  =======================================================
     //TODO: 2022/5/5 rename everything
 
@@ -113,7 +116,24 @@ public class AppController implements Initializable {
 
 
 
-//       App.mainStage.se
+       App.mainStage.initStyle(StageStyle.TRANSPARENT);
+       App.mainStage.setResizable(true);
+       top_bar.setOnMousePressed(pressEvent -> {
+           top_bar.setOnMouseDragged(dragEvent -> {
+               App.mainStage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
+               App.mainStage.setY(dragEvent.getScreenY() - pressEvent.getSceneY());
+           });
+       });
+       dragPane.setOnMouseEntered(event -> {
+           dragPane.setCursor(Cursor.NW_RESIZE);
+       });
+       dragPane.setOnMouseExited(event -> {
+           dragPane.setCursor(Cursor.DEFAULT);
+       });
+       dragPane.setOnMouseDragged(dragEvent -> {
+           App.mainStage.setWidth(App.mainStage.getWidth() + dragEvent.getX());
+           App.mainStage.setHeight(App.mainStage.getHeight() + dragEvent.getY());
+       });
     }
 
 
@@ -129,7 +149,9 @@ public class AppController implements Initializable {
     public void reloadLeftRightPane(){
         if(selectedItem != null){
             loadInformationLayout(selectedItem.getAbsolutePath(), codeTypes_path_abs + codeTypeFilter_comboBox.getValue());
-            codeView.setText("");
+            codeView.setText(cd.OutputProcessedScript());
+            msg.setText("File opened");
+            file_name_label.setText(selectedItem.getName());
         }
     }
 
@@ -170,6 +192,7 @@ public class AppController implements Initializable {
         Text_ColorPicker.setValue(Color.valueOf(textColor_code_default));
         changeColor();
     }
+
     /** 修改顏色
      */
     public void changeColor(){
@@ -194,13 +217,12 @@ public class AppController implements Initializable {
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
                     "    -fx-border-color: #" +borderColor_code+";\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
-                    "    -fx-highlight-fill: #ffffff;\n" +
                     "}" +
-                    ".TreeView{\n" +
+                    ".tree-view{\n" +
                     "    -fx-background-color:  #"+backgroundColor_code+";\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
                     "}" +
-                    ".TreeView .tree-cell{\n" +
+                    ".tree-view .tree-cell{\n" +
                     "   -fx-text-fill: #"+textColor_code+";\n" +
                     "}" +
                     ".text-field," +
@@ -208,21 +230,23 @@ public class AppController implements Initializable {
                     "    -fx-background-color: #"+backgroundColor_code+";\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
-                    "    -fx-highlight-fill: #ffffff;\n" +
                     "    -fx-highlight-text-fill: #"+backgroundColor_code+";\n" +
-                    "}\n" +
+                    "}" +
                     ".combo-box{\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "}\n" +
+                    "}" +
                     ".combo-box .cell{\n" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
-                    "}\n" +
+                    "}" +
                     ".combo-box .list-view {\n" +
                     "    -fx-background-color: #"+buttonColor_code+";\n" +
                     "    -fx-border-color: #"+borderColor_code+";\n" +
-                    "}\n" +
+                    "}" +
                     ".combo-box .list-view .list-cell{\n" +
+                    "    -fx-text-fill: #"+textColor_code+";\n" +
+                    "}"+
+                    ".myLabel{" +
                     "    -fx-text-fill: #"+textColor_code+";\n" +
                     "}"
                     );
@@ -243,20 +267,26 @@ public class AppController implements Initializable {
         if(informationLayout_pane != null) informationLayout_pane.setBackgroundColor(backgroundColor_code);
     }
 
+    /** 儲存註解
+     */
     public void save(){
-//        //fixme saver save
-//        try {
-//            File saveFile = new File(selectedItem.getAbsolutePath());
-//            BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile));
-//            bw.write(cd.OutputProcessedScript());
-//            bw.flush();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            msg.setText("Save Successfully");
-//        }
-//        msg.setText("Save Successfully");
+        //fixme saver save
+        if(selectedItem != null){
+            try {
+                File saveFile = new File(selectedItem.getAbsolutePath());
+                BufferedWriter bw = new BufferedWriter(new FileWriter(saveFile));
+                bw.write(cd.OutputProcessedScript());
+                bw.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+                msg.setText("Save Failed");
+            }
+            msg.setText("Save Successfully");
+        }
     }
+
+    /** 預覽註解
+     */
     public void preview(){
         //fixme
         if(cd != null) codeView.setText(cd.OutputProcessedScript());
@@ -271,7 +301,7 @@ public class AppController implements Initializable {
         App.mainStage.close();
     }
     public void enlargeButtonOnclick(){
-        App.mainStage.setMaximized(true);
+        App.mainStage.setMaximized(!App.mainStage.isMaximized());
     }
     public void smallButtonOnclick(){
         App.mainStage.setIconified(true);
@@ -415,7 +445,7 @@ public class AppController implements Initializable {
             setAllInvisible(main_view);
             settings_pane.setVisible(true);
         });
-        readMeMdEditor_icon.setOnMouseClicked(event -> {
+        usageEditor_icon.setOnMouseClicked(event -> {
             setAllInvisible(main_view);
             readMeMdEditor_view.setVisible(true);
         });
