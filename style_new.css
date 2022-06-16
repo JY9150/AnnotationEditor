@@ -1,62 +1,28 @@
 .mainBackgroundColor{
-    -fx-background-color: #b36680ff;
+    -fx-background-color: #111c26ff;
 }.myButton {
-    -fx-background-color: #ff8080ff;
-    -fx-background-radius: 10;
-    -fx-border-color: #ffccffff;
-    -fx-border-radius: 10;
-
-    -fx-font-family: Consolas;
-    -fx-font-weight: bold;
-    -fx-text-fill: #808000ff;
-    -fx-highlight-fill: #ffffff;
-}.TreeView{
-    -fx-background-color:  #b36680ff;
-    -fx-background-radius: 10;
-    -fx-border-color: #ffccffff;
-    -fx-border-radius: 10;
-}
-.TreeView .tree-cell{
-   -fx-font-family: Consolas;
-   -fx-background-color:  #b36680ff;
-   -fx-text-fill: #808000ff;
-   -fx-background-radius: 10;
-}
-
-.codeView{
-    -fx-background-color: #b36680ff;
-    -fx-background-radius: 10;
-    -fx-border-color: #ffccffff;
-    -fx-border-radius: 10;
-
-    -fx-font-family: Consolas;
-    -fx-text-fill: #808000ff;
-    -fx-highlight-fill: #ffffff;
-    -fx-highlight-text-fill: #b36680ff;
-}
-.combo-box{
-    -fx-background-color: #ff8080ff;
-    -fx-background-radius: 10;
-    -fx-border-color: #ffccffff;
-    -fx-border-radius: 10;
-}
-.combo-box .cell{
-    -fx-background-color: #ff8080ff;
-    -fx-background-radius: 10;
-    -fx-font-family: Consolas;
-    -fx-text-fill: #808000ff;
-}
-.combo-box .list-view {
-    -fx-background-color: #ff8080ff;
-    -fx-background-radius: 10;
-    -fx-border-color: #ffccffff;
-    -fx-border-radius: 10;
-}
-.combo-box .list-view .list-cell{
-    -fx-background-color: #ff8080ff;
-    -fx-background-radius: 10;
-
-    -fx-font-family: Consolas;
-    -fx-text-fill: #808000ff;
-
+    -fx-background-color: #111c26ff;
+    -fx-border-color: #33ffffff;
+    -fx-text-fill: #ffffffff;
+}.tree-view{
+    -fx-background-color:  #111c26ff;
+    -fx-border-color: #33ffffff;
+}.tree-view .tree-cell{
+   -fx-text-fill: #ffffffff;
+}.text-field,.text-area{
+    -fx-background-color: #111c26ff;
+    -fx-border-color: #33ffffff;
+    -fx-text-fill: #ffffffff;
+    -fx-highlight-text-fill: #111c26ff;
+}.combo-box{
+    -fx-background-color: #111c26ff;
+    -fx-border-color: #33ffffff;
+}.combo-box .cell{
+    -fx-text-fill: #ffffffff;
+}.combo-box .list-view {
+    -fx-background-color: #111c26ff;
+    -fx-border-color: #33ffffff;
+}.combo-box .list-view .list-cell{
+    -fx-text-fill: #ffffffff;
+}.myLabel{    -fx-text-fill: #ffffffff;
 }
