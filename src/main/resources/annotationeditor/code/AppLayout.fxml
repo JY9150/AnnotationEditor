@@ -20,9 +20,32 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane fx:id="mainScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="867.0" stylesheets="@../css/style_main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="annotationeditor.code.AppController">
    <children>
-      <AnchorPane fx:id="top_bar" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="top_bar" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #383838;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox fx:id="exit_bar_content" alignment="CENTER_RIGHT" blendMode="HARD_LIGHT" cache="true" maxHeight="30.0" minHeight="30.0" pickOnBounds="false" prefHeight="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="26.0" focusTraversable="true" onMouseClicked="#smallButtonOnclick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/icon7.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#enlargeButtonOnclick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/icon8.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#exitButtonOnclick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/icon9.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="main_view" prefHeight="565.0" prefWidth="742.0" styleClass="mainBackgroundColor" stylesheets="@../css/style_main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
             <AnchorPane fx:id="annotationEditor_view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -55,14 +78,15 @@
                <children>
                   <StackPane layoutX="281.0" layoutY="238.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="147.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="readme.md Editor&#10;施工中...&#10;" textAlignment="CENTER">
+                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="147.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="Ussage Editor&#10;施工中...&#10;" textAlignment="CENTER">
                            <font>
                               <Font name="Consolas Bold" size="12.0" />
                            </font>
                         </Label>
                      </children>
                   </StackPane>
-               </children></AnchorPane>
+               </children>
+            </AnchorPane>
             <AnchorPane fx:id="settings_pane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <StackPane layoutX="198.0" layoutY="113.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -225,26 +249,28 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9C9F96;">
+                  <AnchorPane fx:id="user_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9C9F96;" visible="false">
                      <children>
                         <Label alignment="TOP_CENTER" contentDisplay="RIGHT" layoutX="11.0" layoutY="10.0" prefHeight="568.0" prefWidth="251.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="&#10;&#10;&#10;============ Project Info ============&#10;&#10;May 5,2022 ~ &#10;Language : Java&#10;UI : JavaFX&#10;It's a 【 IntelliJ IDEA 】 project.&#10;&#10;========== About us ==========&#10;&#10;Project Contributors&#10;Boss : 天真&#10;Workers : howard50515, JasonYEH&#10;&#10;Contact us on Discord:&#10;天真#3191, 豪豪喔#8524, Jason 葉#0687&#10;&#10;&#10;&#10;=========== Find a Bug ? ===========&#10;&#10;FIX IT YOURSELF !!&#10;↓↓ Github link ↓↓&#10;https://github.com/YsNaive/AnnotationEditor&#10;=======================&#10;&#10;Copyrights and Licenses does not exist" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <font>
                               <Font name="Consolas Bold" size="12.0" />
                            </font>
                         </Label>
-                     </children></AnchorPane>
-                  <AnchorPane fx:id="home_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #55ffff;" visible="false">
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="home_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #55ffff;">
                      <children>
                         <StackPane layoutX="62.0" layoutY="238.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="60.0" prefWidth="147.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="施工中...&#10;" textAlignment="CENTER">
+                              <Label alignment="CENTER" prefHeight="60.0" prefWidth="147.0" styleClass="myButton" stylesheets="@../css/style_main.css" text="codeType 編輯器&#10;施工中...&#10;" textAlignment="CENTER">
                                  <font>
                                     <Font name="Consolas Bold" size="12.0" />
                                  </font>
                               </Label>
                            </children>
                         </StackPane>
-                     </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
                </children>
             </StackPane>
          </children>
@@ -258,25 +284,33 @@
                <children>
                   <ImageView fx:id="file_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/icon/add.png" />
+                        <Image url="@../image/icon/icon1.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="home_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/icon/home.png" />
+                        <Image url="@../image/icon/icon6.png" />
                      </image>
                   </ImageView>
-                  <StackPane fx:id="annotationEditor_icon" maxHeight="40.0" minHeight="40.0" styleClass="myButton" stylesheets="@../css/style_main.css" VBox.vgrow="ALWAYS" />
-                  <StackPane fx:id="readMeMdEditor_icon" layoutX="15.0" layoutY="197.0" maxHeight="40.0" minHeight="40.0" style="-fx-background-color: #f30000;" VBox.vgrow="ALWAYS" />
+                  <ImageView fx:id="annotationEditor_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/icon4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="usageEditor_icon" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icon/icon5.png" />
+                     </image>
+                  </ImageView>
                   <StackPane prefHeight="407.0" prefWidth="41.0" VBox.vgrow="ALWAYS" />
                   <ImageView fx:id="user_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                      <image>
-                        <Image url="@../image/icon/user.png" />
+                        <Image url="@../image/icon/icon3.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="settings_icon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/icon/setting.png" />
+                        <Image url="@../image/icon/icon2.png" />
                      </image>
                      <effect>
                         <Glow />
@@ -287,31 +321,8 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-         </children></AnchorPane>
-      <AnchorPane fx:id="exit_bar" layoutX="-3.0" layoutY="-4.0" maxHeight="25.0" maxWidth="125.0" minHeight="25.0" minWidth="125.0" onMouseEntered="#mouseEnterExit_bar" onMouseExited="#mouseExitExit_bar" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox fx:id="exit_bar_content" alignment="CENTER_RIGHT" blendMode="HARD_LIGHT" cache="true" layoutX="-66.0" layoutY="-37.0" pickOnBounds="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="35.0" fitWidth="26.0" focusTraversable="true" onMouseClicked="#smallButtonOnclick" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/icon/002-delete.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#enlargeButtonOnclick" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/icon/003-fullscreen.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#exitButtonOnclick" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/icon/001-remove.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
-               </padding>
-            </HBox>
-         </children></AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="dragPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

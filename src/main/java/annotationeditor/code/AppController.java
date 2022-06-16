@@ -35,7 +35,6 @@ public class AppController implements Initializable {
         @FXML private AnchorPane left_pane;
         @FXML private AnchorPane right_pane;
     @FXML private AnchorPane readMeMdEditor_view;
-    @FXML private AnchorPane exit_bar;
     @FXML private HBox exit_bar_content;
 
     @FXML private TextArea codeView;
@@ -46,8 +45,8 @@ public class AppController implements Initializable {
         @FXML private ImageView file_icon;
         @FXML private ImageView home_icon;
         @FXML private ImageView settings_icon;
-        @FXML private StackPane readMeMdEditor_icon;
-        @FXML private StackPane annotationEditor_icon;
+        @FXML private ImageView usageEditor_icon;
+        @FXML private ImageView annotationEditor_icon;
     @FXML private AnchorPane sideBar_View;
     @FXML private StackPane sideBar_content;
         //sideBar_content
@@ -92,6 +91,7 @@ public class AppController implements Initializable {
     @FXML private AnchorPane mainScene;
     @FXML private Label msg;
     @FXML private Label file_name_label;
+    @FXML private AnchorPane dragPane;
     //================================================ todolist  =======================================================
     //TODO: 2022/5/5 rename everything
 
@@ -123,6 +123,16 @@ public class AppController implements Initializable {
                App.mainStage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
                App.mainStage.setY(dragEvent.getScreenY() - pressEvent.getSceneY());
            });
+       });
+       dragPane.setOnMouseEntered(event -> {
+           dragPane.setCursor(Cursor.NW_RESIZE);
+       });
+       dragPane.setOnMouseExited(event -> {
+           dragPane.setCursor(Cursor.DEFAULT);
+       });
+       dragPane.setOnMouseDragged(dragEvent -> {
+           App.mainStage.setWidth(App.mainStage.getWidth() + dragEvent.getX());
+           App.mainStage.setHeight(App.mainStage.getHeight() + dragEvent.getY());
        });
     }
 
@@ -435,7 +445,7 @@ public class AppController implements Initializable {
             setAllInvisible(main_view);
             settings_pane.setVisible(true);
         });
-        readMeMdEditor_icon.setOnMouseClicked(event -> {
+        usageEditor_icon.setOnMouseClicked(event -> {
             setAllInvisible(main_view);
             readMeMdEditor_view.setVisible(true);
         });
